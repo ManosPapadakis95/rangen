@@ -13,7 +13,7 @@
 #include <zigg/header>
 #include <RcppArmadillo.h>
 
-namespace ragen
+namespace rangen
 {
 
 	using std::numeric_limits;

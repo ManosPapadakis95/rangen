@@ -1,30 +1,30 @@
-\name{ragen-package}
-\alias{ragen-package}
-\alias{ragen}
+\name{rangen-package}
+\alias{rangen-package}
+\alias{rangen}
 \docType{package}
 \title{
-\packageTitle{ragen}
+\packageTitle{rangen}
 }
 \description{
-\packageDescription{ragen}
+\packageDescription{rangen}
 }
 \details{
 %%  ~~ An overview of how to use the package, ~~
 %%  ~~ including the most important functions ~~
 }
 \author{
-\packageAuthor{ragen}
+\packageAuthor{rangen}
 
-Maintainer: \packageMaintainer{ragen}
+Maintainer: \packageMaintainer{rangen}
 }
 \references{
 %%  ~~ Literature or other references for background information ~~
 }
 \keyword{package}
 
-%% Uncomment below to imitate parts of library(help = ragen)
-%\section{The \file{DESCRIPTION} File}{\packageDESCRIPTION{ragen}}
-%\section{Documentation Index}{\packageIndices{ragen}}
+%% Uncomment below to imitate parts of library(help = rangen)
+%\section{The \file{DESCRIPTION} File}{\packageDESCRIPTION{rangen}}
+%\section{Documentation Index}{\packageIndices{rangen}}
 
 \seealso{
 %%  ~~ Optional links to other man pages, e.g. ~~

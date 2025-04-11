@@ -2,42 +2,42 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 Runif <- function(n, min, max) {
-    .Call(`_ragen_runif`, n, min, max)
+    .Call(`_rangen_runif`, n, min, max)
 }
 
 Sample.int <- function(n, size, replace) {
-    .Call(`_ragen_sample_int`, n, size, replace)
+    .Call(`_rangen_sample_int`, n, size, replace)
 }
 
 Sample <- function(x, size, replace) {
-    .Call(`_ragen_sample`, x, size, replace)
+    .Call(`_rangen_sample`, x, size, replace)
 }
 
 Rbeta <- function(size, alpha, beta) {
-    .Call(`_ragen_rbeta`, size, alpha, beta)
+    .Call(`_rangen_rbeta`, size, alpha, beta)
 }
 
 Rexp <- function(size, rate) {
-    .Call(`_ragen_rexp`, size, rate)
+    .Call(`_rangen_rexp`, size, rate)
 }
 
 Rchisq <- function(size, df) {
-    .Call(`_ragen_rchisq`, size, df)
+    .Call(`_rangen_rchisq`, size, df)
 }
 
 Rgamma <- function(size, shape, rate) {
-    .Call(`_ragen_rgamma`, size, shape, rate)
+    .Call(`_rangen_rgamma`, size, shape, rate)
 }
 
 Rgeom <- function(size, prob) {
-    .Call(`_ragen_rgeom`, size, prob)
+    .Call(`_rangen_rgeom`, size, prob)
 }
 
 Rcauchy <- function(size, location, scale) {
-    .Call(`_ragen_rcauchy`, size, location, scale)
+    .Call(`_rangen_rcauchy`, size, location, scale)
 }
 
 Rt <- function(size, df, ncp) {
-    .Call(`_ragen_rt`, size, df, ncp)
+    .Call(`_rangen_rt`, size, df, ncp)
 }
 

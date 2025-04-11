@@ -5,7 +5,7 @@
 #include "Random.h"
 #include "assertions.hpp"
 
-namespace ragen
+namespace rangen
 {
 
     template<class T>
