@@ -56,11 +56,66 @@ namespace Assertion
         constexpr static void check_concept() {}
     };
 
+    struct has_col : std::false_type
+    {
+        constexpr static void check_concept()
+        {
+            static_assert(!std::is_same<T, void>::value, "The template class must define a function named 'col' for getting the i-th column.");
+        }
+    };
+
+    template <typename T>
+    struct has_row<T, decltype(std::declval<T>().row(0), void())> : std::true_type
+    {
+        constexpr static void check_concept() {}
+    };
+
+    struct has_row : std::false_type
+    {
+        constexpr static void check_concept()
+        {
+            static_assert(!std::is_same<T, void>::value, "The template class must define a function named 'row' for getting the i-th row.");
+        }
+    };
+
+    template <typename T>
+    struct has_col<T, decltype(std::declval<T>().col(0), void())> : std::true_type
+    {
+        constexpr static void check_concept() {}
+    };
+
+    template <typename, typename = std::void_t<>>
+    struct has_ncol : std::false_type
+    {
+    };
+
+    template <typename T>
+    struct has_ncol<T, std::void_t<decltype(std::declval<T>().ncol())>> : std::true_type
+    {
+    };
+
+    template <typename, typename = std::void_t<>>
+    struct has_nrow : std::false_type
+    {
+    };
+
+    template <typename T>
+    struct has_nrow<T, std::void_t<decltype(std::declval<T>().nrow())>> : std::true_type
+    {
+    };
+
     template <typename T>
     constexpr void has_value_int()
     {
         constexpr auto ok = std::is_same<typename T::value_type, int>::value;
         static_assert(!ok, "The template class value must be of type integer.");
+    };
+
+    template <typename T>
+    constexpr void has_value_bool()
+    {
+        constexpr auto ok = std::is_same<typename T::value_type, bool>::value;
+        static_assert(!ok, "The template class value must be of type bool.");
     };
 
 }
