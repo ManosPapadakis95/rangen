@@ -179,31 +179,6 @@ namespace rangen
 		}
 	};
 
-	// class Gamma
-	// {
-	// 	double shape, rate, d, c;
-
-	// public:
-	// 	Gamma(double shape, double rate) : shape(shape), rate(1.0 / rate), d(shape - 1.0 / 3.0), c(1.0 / std::sqrt(9.0 * d)) {}
-
-	// 	double operator()()
-	// 	{
-	// 		// Marsaglia and Tsang method for rate >= 1
-	// 		while (true)
-	// 		{
-	// 			double x = ziggurat.rnorm(), x2 = x * x;
-	// 			double v = 1.0 + c * x;
-	// 			v = v * v * v;
-	// 			double u = rng();
-
-	// 			if (v > 0 && (u < 1.0 - 0.0331 * x2 * x2 || std::log(u) < 0.5 * x2 + d * (1.0 - v + std::log(v))))
-	// 			{
-	// 				return d * v * rate;
-	// 			}
-	// 		}
-	// 	}
-	// };
-
 	class BetaOne : public Gamma
 	{
 
@@ -284,6 +259,67 @@ namespace rangen
 			return (ziggurat.rnorm() * sqrt_df + ncp_sqrt_df) / std::sqrt(Chisq::operator()());
 		}
 	};
+
+	
+	class Pareto
+	{
+		double shape, scale;
+
+	public:
+		Pareto(double shape = 1, double scale = 1) : shap(shape), scale(scale) {}
+
+		double operator()()
+		{
+			return scale*std::pow(1-rng(), -1/shape);
+		}
+	};
+
+	class Frechet {
+		double shape, mean, scale;
+	
+	public:
+		Frechet(double shape = 1.0, double mean = 0.0, double scale = 1.0) : shape(shape), mean(mean), scale(scale) {}
+	
+		double operator()() {
+			return mean + scale * std::pow(-std::log(rng()), 1.0 / shape);
+		}
+	};
+	
+	class Laplace {
+		double mean, sigma;
+	
+	public:
+		Laplace(double mean, double sigma) : mean(mean), sigma(sigma) {}
+	
+		double operator()() {
+			double u = rng() - 0.5;
+			return mean - sigma * ((u > 0) - (u < 0)) * std::log(1 - 2 * std::abs(u));
+		}
+	};
+	
+	class Gumbel {
+		double mean, sigma;
+	
+	public:
+		Gumbel(double mean = 0.0, double sigma =  1.0) : mean(mean), sigma(sigma) {}
+	
+		double operator()() {
+			return mean - sigma * std::log(-std::log(rng()));
+		}
+	};
+	
+	class Arcsine {
+		double min, max;
+	
+	public:
+		Arcsine(double min = 0.0, double max = 1.0) : min(min), max(max) {}
+	
+		double operator()() {
+			double k = std::sin(rng() * datum::pi / 2.0);
+			return min + (max - min) * k * k;
+		}
+	};
+	
 
 }
 
