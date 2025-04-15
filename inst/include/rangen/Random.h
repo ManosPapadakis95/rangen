@@ -1,14 +1,14 @@
 #ifndef RANDOM_GENERATORS_H
-#define RANDOM_GENERATORS_H
 
+#define RANDOM_GENERATORS_H
+#include <cmath>
 #include <limits>
 #include <type_traits>
 #include <chrono>
 #include <vector>
 #include <algorithm>
 
-//[[Rcpp::depends(zigg)]]
-//[[Rcpp::depends(RcppArmadillo)]]
+//[[Rcpp::depends(zigg, RcppArmadillo)]]
 
 #include <zigg/header>
 #include <RcppArmadillo.h>
@@ -134,7 +134,7 @@ namespace rangen
 		bool boosted;
 
 	public:
-		Gamma(double shape, double rate) : shape(shape), rate(1.0 / rate)
+		Gamma(double shape, double rate = 1.0) : shape(shape), rate(1.0 / rate)
 		{
 			if (shape < 1.0)
 			{
@@ -210,7 +210,7 @@ namespace rangen
 	class Exp : public Gamma
 	{
 	public:
-		Exp(double rate) : Gamma(1.0, rate) {}
+		Exp(double rate = 1.0) : Gamma(1.0, rate) {}
 	};
 
 	class Chisq : public Gamma
@@ -238,7 +238,7 @@ namespace rangen
 		double location, scale;
 
 	public:
-		Cauchy(double location = 0, double scale = 1) : location(location), scale(scale) {}
+		Cauchy(double location = 0.0, double scale = 1.0) : location(location), scale(scale) {}
 
 		double operator()()
 		{
@@ -251,7 +251,7 @@ namespace rangen
 		double sqrt_df, ncp_sqrt_df;
 
 	public:
-		StudentT(double df, double ncp = 0) : Chisq(df), sqrt_df(std::sqrt(df)), ncp_sqrt_df(ncp * sqrt_df) {}
+		StudentT(double df, double ncp) : Chisq(df), sqrt_df(std::sqrt(df)), ncp_sqrt_df(ncp * sqrt_df) {}
 
 		double operator()()
 		{
@@ -259,14 +259,13 @@ namespace rangen
 			return (ziggurat.rnorm() * sqrt_df + ncp_sqrt_df) / std::sqrt(Chisq::operator()());
 		}
 	};
-
 	
 	class Pareto
 	{
 		double shape, scale;
 
 	public:
-		Pareto(double shape = 1, double scale = 1) : shap(shape), scale(scale) {}
+		Pareto(double shape = 1.0, double scale = 1.0) : shape(shape), scale(scale) {}
 
 		double operator()()
 		{
@@ -289,7 +288,7 @@ namespace rangen
 		double mean, sigma;
 	
 	public:
-		Laplace(double mean, double sigma) : mean(mean), sigma(sigma) {}
+		Laplace(double mean = 0.0, double sigma = 1.0) : mean(mean), sigma(sigma) {}
 	
 		double operator()() {
 			double u = rng() - 0.5;
@@ -315,12 +314,12 @@ namespace rangen
 		Arcsine(double min = 0.0, double max = 1.0) : min(min), max(max) {}
 	
 		double operator()() {
-			double k = std::sin(rng() * datum::pi / 2.0);
+			constexpr double P = M_PI / 2.0;
+			double k = std::sin(rng() * P);
 			return min + (max - min) * k * k;
 		}
 	};
 	
-
 }
 
 #endif

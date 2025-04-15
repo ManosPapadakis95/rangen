@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <RcppArmadillo.h>
 #include "Random.h"
 #include "assertions.hpp"
@@ -10,68 +9,111 @@ namespace rangen
 
 	namespace rangen_internal
 	{
-		template<class T>
-		T getOptimType(size_t size){
+
+		template <typename T>
+		inline constexpr bool is_arma = std::is_base_of<arma::Mat<typename T::elem_type>, T>::value ||
+										std::is_base_of<arma::Col<typename T::elem_type>, T>::value ||
+										std::is_base_of<arma::Row<typename T::elem_type>, T>::value;
+
+		template <typename T>
+		inline constexpr bool is_rcpp = std::is_same<Rcpp::NumericMatrix, T>::value ||
+										std::is_same<Rcpp::IntegerMatrix, T>::value ||
+										std::is_same<Rcpp::CharacterMatrix, T>::value ||
+										std::is_same<Rcpp::StringMatrix, T>::value;
+
+		template <class T>
+		size_t nrow(T x)
+		{
+			Assertion::has_value_type<T>::check_concept();
+
+			size_t res;
+
+			if constexpr (is_arma<T>)
+			{
+				res = x.n_rows;
+			}
+			else if constexpr (is_rcpp<T>)
+			{
+				res = x.nrow();
+			}
+			return res;
+		}
+
+		template <class T>
+		size_t ncol(T x)
+		{
+			Assertion::has_value_type<T>::check_concept();
+
+			size_t res;
+
+			if constexpr (std::is_base_of<arma::Mat<typename T::value_type>, T>::value)
+			{
+				res = x.n_cols;
+			}
+			else if constexpr (is_rcpp<T>)
+			{
+				res = x.ncol();
+			}
+			return res;
+		}
+
+		template <class T>
+		T getVector(size_t size)
+		{
 
 			Assertion::has_subscript_operator<T>::check_concept();
 			Assertion::has_value_type<T>::check_concept();
 			Assertion::has_size<T>::check_concept();
-			
+
 			T res;
-			
-			if constexpr(std::is_base_of<arma::Mat<typename T::value_type>, T>::value){
+
+			if constexpr (is_arma<T>)
+			{
 				res = T(size, arma::fill::none);
-			}else{
+			}
+			else if constexpr (is_rcpp<T>)
+			{
 				res = T(size);
 			}
 			return res;
 		}
 
-		template<typename T>
-		inline constexpr bool is_arma = std::is_base_of<arma::Mat<typename T::value_type>, T>::value;
+		template <class T>
+		T getMatrix(size_t nrow, size_t ncol)
+		{
 
-		template<typename T>
-		inline constexpr bool is_rcpp = std::is_same<Rcpp::NumericMatrix, T>::value || 
-		std::is_same<Rcpp::IntegerMatrix, T>::value || 
-		std::is_same<Rcpp::CharacterMatrix, T>::value || 
-		std::is_same<Rcpp::StringMatrix, T>::value;
-
-		template<typename T>
-		inline constexpr bool is_custom = Assertion::has_nrow<T>::check_concept();
-
-		template<class T>
-		size_t nrow(T x) {
+			Assertion::has_subscript_operator<T>::check_concept();
 			Assertion::has_value_type<T>::check_concept();
+			Assertion::has_size<T>::check_concept();
 
-			if constexpr (is_arma<T>) {
-				return x.n_rows;
-			} else if constexpr (is_rcpp<T> || is_custom<T>) {
-				return x.nrow();
+			T res;
+
+			if constexpr (is_arma<T>)
+			{
+				res = T(nrow, ncol, arma::fill::none);
 			}
+			else if constexpr (is_rcpp<T>)
+			{
+				res = T(nrow, ncol);
+			}
+			return res;
 		}
 
-		
-		template<class T>
-		size_t ncol(T x) {
-			Assertion::has_value_type<T>::check_concept();
+		template <class T>
+		arma::Mat<typename std::remove_reference<typename T::value_type>::type> getArmaFrom(T x, const bool copy = true)
+		{
 
-			if constexpr (std::is_base_of<arma::Mat<typename T::value_type>, T>::value) {
-				return x.n_cols;
-			} else if constexpr (
-				std::is_same<Rcpp::NumericMatrix, T>::value || 
-				std::is_same<Rcpp::IntegerMatrix, T>::value || 
-				std::is_same<Rcpp::CharacterMatrix, T>::value || 
-				std::is_same<Rcpp::StringMatrix, T>::value ||
-				Assertion::has_ncol<T>::check_concept()) {
-				return x.ncol();
-			}
+			Assertion::has_subscript_operator<T>::check_concept();
+			Assertion::has_size<T>::check_concept();
+
+			arma::Mat<typename std::remove_reference<typename T::value_type>::type> res(x.begin(), nrow(x), ncol(x), copy);
+			return res;
 		}
 
-
-		template<class T, class Generator, class ...Args>
+		template <class T, class Generator, class... Args>
 		T generic(size_t size, Args... args)
 		{
-			T res = rangen_internal::getOptimType<T>(size);
+			T res = rangen_internal::getVector<T>(size);
 
 			Generator rng(args...);
 			for (size_t i = 0; i < size; ++i)
@@ -82,37 +124,11 @@ namespace rangen
 		}
 	}
 
-	template<class T>
-	T sample(size_t n, size_t size, const bool replace = false)
-	{
-        Assertion::has_value_int<T>();
-     
-        T res = rangen_internal::getOptimType<T>(size);
-
-		if (replace)
-		{
-			uniform<integer, true> rng(1, n);
-			for (unsigned int i = 0; i < size; ++i)
-			{
-				res[i] = rng();
-			}
-		}
-		else
-		{
-			uniform<integer> rng(1, n);
-			for (unsigned int i = 0; i < size; ++i)
-			{
-				res[i] = rng();
-			}
-		}
-		return res;
-	}
-
-	template<class T>
+	template <class T>
 	T sample(T x, size_t size, const bool replace = false)
 	{
-		T res = rangen_internal::getOptimType<T>(size);
-		
+		T res = rangen_internal::getVector<T>(size);
+
 		if (replace)
 		{
 			uniform<integer, true> rng(0, x.size() - 1);
@@ -123,7 +139,6 @@ namespace rangen
 		}
 		else
 		{
-			uniform<integer> rng(0, x.size() - 1);
 			for (unsigned int i = 0; i < size; ++i)
 			{
 				res[i] = x[rng()];
@@ -132,97 +147,116 @@ namespace rangen
 		return res;
 	}
 
-    template<class T, class L>
-	colSample(T x, size_t size, L replace){
-		Assertion::has_value_type<T>::check_concept();
-		Assertion::has_value_type<T>::check_concept();
-		Assertion::has_col<T>::check_concept();
-		Assertion::has_col<L>::check_concept();
+	// template<class T, class L>
+	// T colSample(T x, size_t size, L replace){
+	// 	Assertion::has_value_type<T>::check_concept();
+	// 	Assertion::has_value_type<T>::check_concept();
+	// 	Assertion::has_col<T>::check_concept();
+	// 	Assertion::has_col<L>::check_concept();
 
-		size_t n = ncol(x);
-		T res = rangen_internal::getOptimType<T>(n);
+	// 	size_t n = ncol(x);
+	// 	T res = rangen_internal::getVector<T>(n);
 
-		for(size_t i=0; i<n; ++i){
-			if constexpr (is_arma<T>) {
-				x.col(i) = sample<arma::Col<typename T::vale_type>>(x.col(i), size, replace[i]);
-			} else if constexpr (is_rcpp<T> || is_custom<T>) {
-				x.column(i) = sample>(x.column(i), size, replace[i]);
-			}
+	// 	for(size_t i=0; i<n; ++i){
+	// 		if constexpr (is_arma<T>) {
+	// 			res.col(i) = sample<arma::Col<typename T::vale_type>>(x.col(i), size, replace[i]);
+	// 		} else if constexpr (is_rcpp<T> || is_custom<T>) {
+	// 			res.column(i) = sample>(x.column(i), size, replace[i]);
+	// 		}
+	// 	}
+	// }
+
+	template <class L>
+	Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, size_t size, L replace)
+	{
+		size_t n = rangen_internal::ncol(x);
+		arma::mat xx = rangen_internal::getArmaFrom(x, false);
+		Rcpp::NumericMatrix res(xx.n_rows, xx.n_cols);
+		arma::mat Res = rangen_internal::getArmaFrom(res, false);
+
+		for (size_t i = 0; i < n; ++i)
+		{
+			Res.col(i) = sample<arma::colvec>(xx.col(i), size, replace[i]);
 		}
-		
 		return res;
 	}
 
-    template<class T>
-	T runif(size_t size, const double min, const double max)
+	template <class T>
+	T runif(size_t size, double min = 0.0, double max = 1.0)
 	{
-		return rangen_internal::<T,uniform<real>>(size,min,max);
+		return rangen_internal::generic<T, uniform<real>>(size, min, max);
 	}
 
-	template<class T>
+	template <class T>
 	T rbeta(size_t size, double alpha, double beta)
 	{
-		return rangen_internal::<T,Beta>(size,alpha,beta);
+		return rangen_internal::generic<T, Beta>(size, alpha, beta);
 	}
-	
-	template<class T>
-	T rexp(size_t size, double rate)
+
+	template <class T>
+	T rexp(size_t size, double rate = 1.0)
 	{
-		return rangen_internal::<T,Exp>(size,rate);
+		return rangen_internal::generic<T, Exp>(size, rate);
 	}
-	
-	template<class T>
+
+	template <class T>
 	T rchisq(size_t size, double df)
 	{
-		return rangen_internal::<T,Chisq>(size,df);
+		return rangen_internal::generic<T, Chisq>(size, df);
 	}
-	
-	template<class T>
-	T rgamma(size_t size, double shape, double rate)
+
+	template <class T>
+	T rgamma(size_t size, double shape, double rate = 1.0)
 	{
-		return rangen_internal::<T,Gamma>(size,shape, rate);
+		return rangen_internal::generic<T, Gamma>(size, shape, rate);
 	}
-	
-	template<class T>
+
+	template <class T>
 	T rgeom(size_t size, double prob)
 	{
-		return rangen_internal::<T,Geom>(size,prob);
+		return rangen_internal::generic<T, Geom>(size, prob);
 	}
-	
-	template<class T>
-	T rcauchy(size_t size, double location, double scale)
+
+	template <class T>
+	T rcauchy(size_t size, double location = 0.0, double scale = 1.0)
 	{
-		return rangen_internal::<T,Cauchy>(size,location,scale);
+		return rangen_internal::generic<T, Cauchy>(size, location, scale);
 	}
-	
-	template<class T>
+
+	template <class T>
 	T rt(size_t size, double df, double ncp)
 	{
-		return rangen_internal::<T,StudentT>(size,df, ncp);
+		return rangen_internal::generic<T, StudentT>(size, df, ncp);
 	}
 
 	template <class T>
-	T rfrechet(size_t size, double shape, double mean, double scale) {
-		return rangen_internal::<T, Frechet>(size, shape, mean, scale);
+	T rpareto(size_t size, double shape = 1.0, double scale = 1.0)
+	{
+		return rangen_internal::generic<T, Pareto>(size, shape, scale);
 	}
 
 	template <class T>
-	T rlaplace(size_t size, double mean, double sigma) {
-		return rangen_internal::<T, Laplace>(size, mean, sigma);
+	T rfrechet(size_t size, double shape = 1.0, double mean = 0.0, double scale = 1.0)
+	{
+		return rangen_internal::generic<T, Frechet>(size, shape, mean, scale);
 	}
 
 	template <class T>
-	T rgumble(size_t size, double mean, double sigma) {
-		return rangen_internal::<T, Gumbel>(size, mean, sigma);
+	T rlaplace(size_t size, double mean = 0.0, double sigma = 1.0)
+	{
+		return rangen_internal::generic<T, Laplace>(size, mean, sigma);
 	}
 
 	template <class T>
-	T rarcsine(size_t size, double min, double max) {
-		return rangen_internal::<T, Arcsine>(size, min, max);
+	T rgumble(size_t size, double mean = 0.0, double sigma = 1.0)
+	{
+		return rangen_internal::generic<T, Gumbel>(size, mean, sigma);
 	}
 
-
-
-
+	template <class T>
+	T rarcsine(size_t size, double min = 0.0, double max = 1.0)
+	{
+		return rangen_internal::generic<T, Arcsine>(size, min, max);
+	}
 
 }

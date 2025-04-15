@@ -25,32 +25,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// sample_int
-Rcpp::IntegerVector sample_int(size_t n, size_t size, bool replace);
-RcppExport SEXP _rangen_sample_int(SEXP nSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type replace(replaceSEXP);
-    rcpp_result_gen = Rcpp::wrap(sample_int(n, size, replace));
-    return rcpp_result_gen;
-END_RCPP
-}
-// sample
-Rcpp::NumericVector sample(Rcpp::NumericVector x, size_t size, bool replace);
-RcppExport SEXP _rangen_sample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type replace(replaceSEXP);
-    rcpp_result_gen = Rcpp::wrap(sample(x, size, replace));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rbeta
 Rcpp::NumericVector rbeta(size_t size, double alpha, double beta);
 RcppExport SEXP _rangen_rbeta(SEXP sizeSEXP, SEXP alphaSEXP, SEXP betaSEXP) {
@@ -139,11 +113,114 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rpareto
+Rcpp::NumericVector rpareto(size_t size, double shape, double scale);
+RcppExport SEXP _rangen_rpareto(SEXP sizeSEXP, SEXP shapeSEXP, SEXP scaleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(rpareto(size, shape, scale));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rfrechet
+Rcpp::NumericVector rfrechet(size_t size, double shape, double mean, double scale);
+RcppExport SEXP _rangen_rfrechet(SEXP sizeSEXP, SEXP shapeSEXP, SEXP meanSEXP, SEXP scaleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< double >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(rfrechet(size, shape, mean, scale));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rlaplace
+Rcpp::NumericVector rlaplace(size_t size, double mean, double sigma);
+RcppExport SEXP _rangen_rlaplace(SEXP sizeSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< double >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rlaplace(size, mean, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rgumble
+Rcpp::NumericVector rgumble(size_t size, double mean, double sigma);
+RcppExport SEXP _rangen_rgumble(SEXP sizeSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< double >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rgumble(size, mean, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rarcsine
+Rcpp::NumericVector rarcsine(size_t size, double min, double max);
+RcppExport SEXP _rangen_rarcsine(SEXP sizeSEXP, SEXP minSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< double >::type min(minSEXP);
+    Rcpp::traits::input_parameter< double >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(rarcsine(size, min, max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sample_int
+Rcpp::IntegerVector sample_int(size_t n, size_t size, bool replace);
+RcppExport SEXP _rangen_sample_int(SEXP nSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< bool >::type replace(replaceSEXP);
+    rcpp_result_gen = Rcpp::wrap(sample_int(n, size, replace));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sample
+Rcpp::NumericVector sample(Rcpp::NumericVector x, size_t size, bool replace);
+RcppExport SEXP _rangen_sample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< bool >::type replace(replaceSEXP);
+    rcpp_result_gen = Rcpp::wrap(sample(x, size, replace));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colSample
+Rcpp::NumericVector colSample(Rcpp::NumericMatrix x, size_t size, Rcpp::LogicalVector replace);
+RcppExport SEXP _rangen_colSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type replace(replaceSEXP);
+    rcpp_result_gen = Rcpp::wrap(colSample(x, size, replace));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rangen_runif", (DL_FUNC) &_rangen_runif, 3},
-    {"_rangen_sample_int", (DL_FUNC) &_rangen_sample_int, 3},
-    {"_rangen_sample", (DL_FUNC) &_rangen_sample, 3},
     {"_rangen_rbeta", (DL_FUNC) &_rangen_rbeta, 3},
     {"_rangen_rexp", (DL_FUNC) &_rangen_rexp, 2},
     {"_rangen_rchisq", (DL_FUNC) &_rangen_rchisq, 2},
@@ -151,6 +228,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rangen_rgeom", (DL_FUNC) &_rangen_rgeom, 2},
     {"_rangen_rcauchy", (DL_FUNC) &_rangen_rcauchy, 3},
     {"_rangen_rt", (DL_FUNC) &_rangen_rt, 3},
+    {"_rangen_rpareto", (DL_FUNC) &_rangen_rpareto, 3},
+    {"_rangen_rfrechet", (DL_FUNC) &_rangen_rfrechet, 4},
+    {"_rangen_rlaplace", (DL_FUNC) &_rangen_rlaplace, 3},
+    {"_rangen_rgumble", (DL_FUNC) &_rangen_rgumble, 3},
+    {"_rangen_rarcsine", (DL_FUNC) &_rangen_rarcsine, 3},
+    {"_rangen_sample_int", (DL_FUNC) &_rangen_sample_int, 3},
+    {"_rangen_sample", (DL_FUNC) &_rangen_sample, 3},
+    {"_rangen_colSample", (DL_FUNC) &_rangen_colSample, 3},
     {NULL, NULL, 0}
 };
 
