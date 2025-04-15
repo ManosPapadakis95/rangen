@@ -76,7 +76,12 @@ Rcpp::NumericVector sample(Rcpp::NumericVector x, size_t size, bool replace = fa
     return rangen::sample<Rcpp::NumericVector>(x, size, replace);
 }
 
-//[[Rcpp::export(name = "colSample")]]
+//[[Rcpp::export(name = "colSample", signature = {x, size, replace = rep_len(FALSE, ncol(x))})]]
 Rcpp::NumericVector colSample(Rcpp::NumericMatrix x, size_t size, Rcpp::LogicalVector replace) {
     return rangen::colSample(x,size,replace);
+}
+
+//[[Rcpp::export(name = "rowSample", signature = {x, size, replace = rep_len(FALSE, nrow(x))})]]
+Rcpp::NumericVector rowSample(Rcpp::NumericMatrix x, size_t size, Rcpp::LogicalVector replace) {
+    return rangen::rowSample(x,size,replace);
 }

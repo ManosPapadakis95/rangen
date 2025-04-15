@@ -218,6 +218,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rowSample
+Rcpp::NumericVector rowSample(Rcpp::NumericMatrix x, size_t size, Rcpp::LogicalVector replace);
+RcppExport SEXP _rangen_rowSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type replace(replaceSEXP);
+    rcpp_result_gen = Rcpp::wrap(rowSample(x, size, replace));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rangen_runif", (DL_FUNC) &_rangen_runif, 3},
@@ -236,6 +249,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rangen_sample_int", (DL_FUNC) &_rangen_sample_int, 3},
     {"_rangen_sample", (DL_FUNC) &_rangen_sample, 3},
     {"_rangen_colSample", (DL_FUNC) &_rangen_colSample, 3},
+    {"_rangen_rowSample", (DL_FUNC) &_rangen_rowSample, 3},
     {NULL, NULL, 0}
 };
 

@@ -181,6 +181,21 @@ namespace rangen
 		return res;
 	}
 
+	template <class L>
+	Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, size_t size, L replace)
+	{
+		size_t n = rangen_internal::nrow(x);
+		arma::mat xx = rangen_internal::getArmaFrom(x, false);
+		Rcpp::NumericMatrix res(xx.n_rows, xx.n_cols);
+		arma::mat Res = rangen_internal::getArmaFrom(res, false);
+
+		for (size_t i = 0; i < n; ++i)
+		{
+			Res.row(i) = sample<arma::rowvec>(xx.row(i), size, replace[i]);
+		}
+		return res;
+	}
+
 	template <class T>
 	T runif(size_t size, double min = 0.0, double max = 1.0)
 	{

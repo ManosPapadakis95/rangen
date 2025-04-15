@@ -1,6 +1,8 @@
 \name{Random integer values simulation}
 \alias{Sample.int}
 \alias{Sample}
+\alias{colSample}
+\alias{rowSample}
 \title{
 Random integer values simulation
 }
@@ -11,7 +13,9 @@ Random integer values simulation.
 
 \usage{
 Sample.int(n, size = n, replace = FALSE) 
-Sample(x, size, replace = FALSE) 
+Sample(x, size, replace = FALSE)
+colSample(x, size, replace = rep_len(FALSE, nrow(x)))
+rowSample(x, size, replace = rep_len(FALSE, nrow(x)))
 }
 
 \arguments{

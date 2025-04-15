@@ -61,7 +61,11 @@ Sample <- function(x, size, replace = FALSE) {
     .Call(`_rangen_sample`, x, size, replace)
 }
 
-colSample <- function(x, size, replace) {
+colSample <- function(x, size, replace = rep_len(FALSE, ncol(x))) {
     .Call(`_rangen_colSample`, x, size, replace)
+}
+
+rowSample <- function(x, size, replace = rep_len(FALSE, nrow(x))) {
+    .Call(`_rangen_rowSample`, x, size, replace)
 }
 
