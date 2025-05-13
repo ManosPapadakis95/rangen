@@ -19,7 +19,11 @@ namespace rangen
 		inline constexpr bool is_rcpp = std::is_same<Rcpp::NumericMatrix, T>::value ||
 										std::is_same<Rcpp::IntegerMatrix, T>::value ||
 										std::is_same<Rcpp::CharacterMatrix, T>::value ||
-										std::is_same<Rcpp::StringMatrix, T>::value;
+										std::is_same<Rcpp::StringMatrix, T>::value ||
+										std::is_same<Rcpp::NumericVector, T>::value ||
+										std::is_same<Rcpp::IntegerVector, T>::value ||
+										std::is_same<Rcpp::CharacterVector, T>::value ||
+										std::is_same<Rcpp::StringVector, T>::value;
 
 		template <class T>
 		size_t nrow(T x)
@@ -129,9 +133,18 @@ namespace rangen
 	{
 		T res = rangen_internal::getVector<T>(size);
 
+		if constexpr(std::is_integral_v<typename T::value_type>){
+			if(x.size() == 1){
+				const size_t n = x[0];
+				for (unsigned int i = 0; i < n; ++i){
+					res[i] = i + 1;
+				}
+			}
+		}
+
 		if (replace)
 		{
-			uniform<integer, true> rng(0, x.size() - 1);
+			uniform<integer, true> rng(0, size - 1);
 			for (unsigned int i = 0; i < size; ++i)
 			{
 				res[i] = x[rng()];
@@ -146,7 +159,7 @@ namespace rangen
 		}
 		return res;
 	}
-
+	
 	// template<class T, class L>
 	// T colSample(T x, size_t size, L replace){
 	// 	Assertion::has_value_type<T>::check_concept();
@@ -233,45 +246,45 @@ namespace rangen
 	}
 
 	template <class T>
-	T rcauchy(size_t size, double location = 0.0, double scale = 1.0)
+	T rcauchy(size_t n, double location = 0.0, double scale = 1.0)
 	{
-		return rangen_internal::generic<T, Cauchy>(size, location, scale);
+		return rangen_internal::generic<T, Cauchy>(n, location, scale);
 	}
 
 	template <class T>
-	T rt(size_t size, double df, double ncp)
+	T rt(size_t n, double df, double ncp)
 	{
-		return rangen_internal::generic<T, StudentT>(size, df, ncp);
+		return rangen_internal::generic<T, StudentT>(n, df, ncp);
 	}
 
 	template <class T>
-	T rpareto(size_t size, double shape = 1.0, double scale = 1.0)
+	T rpareto(size_t n, double shape = 1.0, double scale = 1.0)
 	{
-		return rangen_internal::generic<T, Pareto>(size, shape, scale);
+		return rangen_internal::generic<T, Pareto>(n, shape, scale);
 	}
 
 	template <class T>
-	T rfrechet(size_t size, double shape = 1.0, double mean = 0.0, double scale = 1.0)
+	T rfrechet(size_t n, double shape = 1.0, double mean = 0.0, double scale = 1.0)
 	{
-		return rangen_internal::generic<T, Frechet>(size, shape, mean, scale);
+		return rangen_internal::generic<T, Frechet>(n, shape, mean, scale);
 	}
 
 	template <class T>
-	T rlaplace(size_t size, double mean = 0.0, double sigma = 1.0)
+	T rlaplace(size_t n, double mean = 0.0, double sigma = 1.0)
 	{
-		return rangen_internal::generic<T, Laplace>(size, mean, sigma);
+		return rangen_internal::generic<T, Laplace>(n, mean, sigma);
 	}
 
 	template <class T>
-	T rgumble(size_t size, double mean = 0.0, double sigma = 1.0)
+	T rgumble(size_t n, double mean = 0.0, double sigma = 1.0)
 	{
-		return rangen_internal::generic<T, Gumbel>(size, mean, sigma);
+		return rangen_internal::generic<T, Gumbel>(n, mean, sigma);
 	}
 
 	template <class T>
-	T rarcsine(size_t size, double min = 0.0, double max = 1.0)
+	T rarcsine(size_t n, double min = 0.0, double max = 1.0)
 	{
-		return rangen_internal::generic<T, Arcsine>(size, min, max);
+		return rangen_internal::generic<T, Arcsine>(n, min, max);
 	}
 
 }
