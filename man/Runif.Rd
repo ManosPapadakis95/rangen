@@ -7,6 +7,11 @@
 \alias{Rcauchy}
 \alias{Rt}
 \alias{Rgeom}
+\alias{Rpareto}
+\alias{Rfrechet}
+\alias{Rlaplace}
+\alias{Rgumblet}
+\alias{Rarcsine}
 \title{
 Random values simulation from various distributions
 }
@@ -24,6 +29,12 @@ Rgamma(n, shape, rate = 1.0)
 Rcauchy(n, location = 0, scale = 1)
 Rt(n, df, ncp = 0)
 Rgeom(n, prob)
+
+Rpareto(n, shape = 1.0, scale = 1.0)
+Rfrechet(n, shape = 1.0, mu = 0.0, scale = 1.0)
+Rlaplace(n, mu = 0.0, sigma = 1.0)
+Rgumblet(n, mu = 0.0, sigma = 1.0)
+Rarcsine(n, min = 0.0, max = 1.0)
 }
 
 \arguments{
@@ -31,39 +42,40 @@ Rgeom(n, prob)
 The number of values to generate.
 }
 \item{min}{
-For \code{Runif}: The lower value of the uniform distribution.
+The lower value.
 }
 \item{max}{
-For \code{Runif}: The upper value of the uniform distribution.
+The upper value.
 }
 \item{alpha}{
-For \code{Rbeta}: The shape parameter alpha of the beta distribution.
+The shape parameter alpha.
 }
 \item{beta}{
-For \code{Rbeta}: The shape parameter beta of the beta distribution.
+The shape parameter beta.
 }
 \item{rate}{
-For \code{Rexp}, \code{Rgamma}: The rate parameter of the exponential or gamma distribution.
+\code{Rgamma}: The rate parameter.
 }
 \item{df}{
-For \code{Rchisq}, \code{Rt}: The degrees of freedom for the chi-squared or t-distribution.
+\code{Rt}: The degrees of freedom.
 }
 \item{shape}{
-For \code{Rgamma}: The shape parameter of the gamma distribution.
+The shape parameter.
 }
-\item{location}{
-For \code{Rcauchy}: The location parameter of the Cauchy distribution.
+\item{location,mu}{
+The location parameter.
 }
-\item{scale}{
-For \code{Rcauchy}: The scale parameter of the Cauchy distribution.
+\item{scale,sigma}{
+The scale parameter.
 }
 \item{ncp}{
-For \code{Rt}: The non-centrality parameter of the t-distribution.
+The non-centrality parameter.
 }
 \item{prob}{
-For \code{Rgeom}: The probability of success on each trial for the geometric distribution.
+The probability of success on each trial.
 }
 }
+
 \details{
     
 \itemize{
@@ -82,7 +94,18 @@ For \code{Rgeom}: The probability of success on each trial for the geometric dis
 \item \code{Rt}: generates random values from the t-distribution with specified \code{df} degrees of freedom and an optional non-centrality parameter \code{ncp}. The type used is \eqn{\frac{Z}{\sqrt{\frac{Y}{df}}}}, where \code{Z} is a standard normal random variable and \code{Y} is a chi-squared random variable. If \code{ncp} is provided, the type used is \eqn{\frac{Z + ncp}{\sqrt{\frac{Y}{df}}}}.
 
 \item \code{Rgeom}: generates random values from the geometric distribution with the specified probability \code{prob}. The type used is \eqn{\left\lfloor \frac{\log(U)}{\log(1 - prob)} \right\rfloor}, where \code{U} is a uniform random variable.
+
+\item \code{Rpareto}: generates random values from the Pareto distribution with parameters \code{shape} and \code{scale}. The type used is \eqn{\text{scale} \cdot (1 - U)^{-\frac{1}{\text{shape}}}}, where \code{U} is a uniform random variable in the interval (0, 1).
+
+\item \code{Rfrechet}: generates random values from the Fréchet distribution with parameters \code{shape}, \code{mu}, and \code{scale}. The type used is \eqn{\mu + \text{scale} \cdot (-\log U)^{1/\text{shape}}}, where \code{U} is a uniform random variable in (0, 1).
+
+\item \code{Rlaplace}: generates random values from the Laplace distribution with location parameter \code{mu} and scale parameter \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \text{sign}(U) \cdot \log(1 - 2 \cdot |U|)}, where \code{U} is a uniform random variable in (0, 1).
+
+\item \code{Rgumblet}: generates random values from the Gumbel (type I extreme value) distribution with parameters \code{mu} and \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \log(-\log U)}, where \code{U} is a uniform random variable in (0, 1).
+
+\item \code{Rarcsine}: generates random values from the arcsine distribution over the interval \code{[min, max]}. The type used is \eqn{\text{min} + (\text{max} - \text{min}) \cdot \sin^2(\pi U / 2)}, where \code{U} is a uniform random variable in (0, 1).
 }
+
 }
 
 
