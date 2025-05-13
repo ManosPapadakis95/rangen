@@ -20,7 +20,7 @@ rowSample(x, size, replace = rep_len(FALSE, nrow(x)))
 
 \arguments{
 \item{x}{
-A numeric vector for sampling.
+A numeric vector for sampling or a matrix for column-row sampling.
 }
 \item{n}{
 This must be an integer value. The function will then draw random integer values from 1:n. 
