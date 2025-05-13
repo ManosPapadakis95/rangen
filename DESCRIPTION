@@ -1,13 +1,17 @@
 Package: rangen
 Type: Package
 Title: What the Package Does (Short Line)
-Version: 1.0
-Date: 2025-03-10
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line).
-License: GPL (>= 2.0)
-Imports: Rcpp (>= 1.0.13-1)
+Version: 0.0.1
+Date: 2025-05-13
+Authors@R: c(
+    person("Manos Papadakis", email = "papadakm95@gmail.com", role = c("aut", "cre", "cph")),
+    person("Michail Tsagris", role = c("aut"))
+    )
+Maintainer: Manos Papadakis <papadakm95@gmail.com>
+License: GPL-3
+Imports: Rcpp (>= 1.0.14)
 LinkingTo: Rcpp (>= 0.12.3), RcppArmadillo, zigg
-Depends: R (>= 3.5.0), Rcpp (>= 0.12.3), zigg
+Depends: R (>= 3.5.0)
 SystemRequirements: C++17
+NeedsCompilation: yes
