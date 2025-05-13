@@ -1,35 +1,38 @@
+%[dont read]
+
 \name{rangen-package}
 \alias{rangen-package}
-\alias{rangen}
 \docType{package}
 \title{
-\packageTitle{rangen}
+Really fast R functions
 }
-\description{
-\packageDescription{rangen}
-}
-\details{
-%%  ~~ An overview of how to use the package, ~~
-%%  ~~ including the most important functions ~~
-}
-\author{
-\packageAuthor{rangen}
 
+\description{
+A collection of rangen functions for data analysis. 
+}
+
+\details{
+\tabular{ll}{
+Package: \tab \packageName{rangen}\cr
+Type: \tab \packageType{rangen}\cr
+Version: \tab \packageVersion{rangen} \cr
+Date: \tab \packageDate{rangen}\cr
+License: \tab \packageLicense{rangen}\cr
+}
+}
+
+\author{
+\itemize{
+\item Manos Papadakis <papadakm95@gmail.com>
+\item Michail Tsagris <mtsagris@uoc.gr>
+}
+}
+
+\section{Maintainers }{
 Maintainer: \packageMaintainer{rangen}
 }
-\references{
-%%  ~~ Literature or other references for background information ~~
-}
-\keyword{package}
 
-%% Uncomment below to imitate parts of library(help = rangen)
-%\section{The \file{DESCRIPTION} File}{\packageDESCRIPTION{rangen}}
-%\section{Documentation Index}{\packageIndices{rangen}}
+%\note{
+%Acknowledgments:
+%}
 
-\seealso{
-%%  ~~ Optional links to other man pages, e.g. ~~
-%%  ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
-\examples{
-%%  ~~ Optional simple examples of the most important functions ~~
-}
