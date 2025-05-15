@@ -13,9 +13,9 @@ Random integer values simulation.
 
 \usage{
 Sample.int(n, size = n, replace = FALSE) 
-Sample(x, size, replace = FALSE)
-colSample(x, size, replace = rep_len(FALSE, nrow(x)))
-rowSample(x, size, replace = rep_len(FALSE, nrow(x)))
+Sample(x, size = n, replace = FALSE)
+colSample(x, size = rep_len(n, ncol(x)), replace = rep_len(FALSE, ncol(x)))
+rowSample(x, size = rep_len(n, nrow(x)), replace = rep_len(FALSE, nrow(x)))
 }
 
 \arguments{

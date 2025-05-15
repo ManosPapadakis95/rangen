@@ -23,18 +23,17 @@ Functions to simulate random values from different probability distributions: un
 \usage{
 Runif(n, min = 0, max = 1) 
 Rbeta(n, alpha, beta)
-Rexp(n, rate)
+Rexp(n, rate = 1)
 Rchisq(n, df)
-Rgamma(n, shape, rate = 1.0)
+Rgamma(n, shape, rate = 1)
 Rcauchy(n, location = 0, scale = 1)
-Rt(n, df, ncp = 0)
+Rt(n, df, ncp)
 Rgeom(n, prob)
-
-Rpareto(n, shape = 1.0, scale = 1.0)
-Rfrechet(n, shape = 1.0, mu = 0.0, scale = 1.0)
-Rlaplace(n, mu = 0.0, sigma = 1.0)
-Rgumblet(n, mu = 0.0, sigma = 1.0)
-Rarcsine(n, min = 0.0, max = 1.0)
+Rpareto(n, shape = 1, scale = 1)
+Rfrechet(n, lambda = 1, mu = 0, sigma = 1)
+Rlaplace(n, mu = 0, sigma = 1)
+Rgumblet(n, mu = 0, sigma = 1)
+Rarcsine(n, min = 0, max = 1)
 }
 
 \arguments{
@@ -59,7 +58,7 @@ The shape parameter beta.
 \item{df}{
 \code{Rt}: The degrees of freedom.
 }
-\item{shape}{
+\item{lambda,shape}{
 The shape parameter.
 }
 \item{location,mu}{
@@ -97,7 +96,7 @@ The probability of success on each trial.
 
 \item \code{Rpareto}: generates random values from the Pareto distribution with parameters \code{shape} and \code{scale}. The type used is \eqn{\text{scale} \cdot (1 - U)^{-\frac{1}{\text{shape}}}}, where \code{U} is a uniform random variable in the interval (0, 1).
 
-\item \code{Rfrechet}: generates random values from the Fréchet distribution with parameters \code{shape}, \code{mu}, and \code{scale}. The type used is \eqn{\mu + \text{scale} \cdot (-\log U)^{1/\text{shape}}}, where \code{U} is a uniform random variable in (0, 1).
+\item \code{Rfrechet}: generates random values from the Frechet distribution with parameters \code{shape}, \code{mu}, and \code{scale}. The type used is \eqn{\mu + \text{scale} \cdot (-\log U)^{1/\text{shape}}}, where \code{U} is a uniform random variable in (0, 1).
 
 \item \code{Rlaplace}: generates random values from the Laplace distribution with location parameter \code{mu} and scale parameter \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \text{sign}(U) \cdot \log(1 - 2 \cdot |U|)}, where \code{U} is a uniform random variable in (0, 1).
 
