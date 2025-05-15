@@ -26,156 +26,156 @@ BEGIN_RCPP
 END_RCPP
 }
 // rbeta
-Rcpp::NumericVector rbeta(size_t size, double alpha, double beta);
-RcppExport SEXP _rangen_rbeta(SEXP sizeSEXP, SEXP alphaSEXP, SEXP betaSEXP) {
+Rcpp::NumericVector rbeta(size_t n, double alpha, double beta);
+RcppExport SEXP _rangen_rbeta(SEXP nSEXP, SEXP alphaSEXP, SEXP betaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
-    rcpp_result_gen = Rcpp::wrap(rbeta(size, alpha, beta));
+    rcpp_result_gen = Rcpp::wrap(rbeta(n, alpha, beta));
     return rcpp_result_gen;
 END_RCPP
 }
 // rexp
-Rcpp::NumericVector rexp(size_t size, double rate);
-RcppExport SEXP _rangen_rexp(SEXP sizeSEXP, SEXP rateSEXP) {
+Rcpp::NumericVector rexp(size_t n, double rate);
+RcppExport SEXP _rangen_rexp(SEXP nSEXP, SEXP rateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type rate(rateSEXP);
-    rcpp_result_gen = Rcpp::wrap(rexp(size, rate));
+    rcpp_result_gen = Rcpp::wrap(rexp(n, rate));
     return rcpp_result_gen;
 END_RCPP
 }
 // rchisq
-Rcpp::NumericVector rchisq(size_t size, double df);
-RcppExport SEXP _rangen_rchisq(SEXP sizeSEXP, SEXP dfSEXP) {
+Rcpp::NumericVector rchisq(size_t n, double df);
+RcppExport SEXP _rangen_rchisq(SEXP nSEXP, SEXP dfSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type df(dfSEXP);
-    rcpp_result_gen = Rcpp::wrap(rchisq(size, df));
+    rcpp_result_gen = Rcpp::wrap(rchisq(n, df));
     return rcpp_result_gen;
 END_RCPP
 }
 // rgamma
-Rcpp::NumericVector rgamma(size_t size, double shape, double rate);
-RcppExport SEXP _rangen_rgamma(SEXP sizeSEXP, SEXP shapeSEXP, SEXP rateSEXP) {
+Rcpp::NumericVector rgamma(size_t n, double shape, double rate);
+RcppExport SEXP _rangen_rgamma(SEXP nSEXP, SEXP shapeSEXP, SEXP rateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
     Rcpp::traits::input_parameter< double >::type rate(rateSEXP);
-    rcpp_result_gen = Rcpp::wrap(rgamma(size, shape, rate));
+    rcpp_result_gen = Rcpp::wrap(rgamma(n, shape, rate));
     return rcpp_result_gen;
 END_RCPP
 }
 // rgeom
-Rcpp::NumericVector rgeom(size_t size, double prob);
-RcppExport SEXP _rangen_rgeom(SEXP sizeSEXP, SEXP probSEXP) {
+Rcpp::NumericVector rgeom(size_t n, double prob);
+RcppExport SEXP _rangen_rgeom(SEXP nSEXP, SEXP probSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type prob(probSEXP);
-    rcpp_result_gen = Rcpp::wrap(rgeom(size, prob));
+    rcpp_result_gen = Rcpp::wrap(rgeom(n, prob));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcauchy
-Rcpp::NumericVector rcauchy(size_t size, double location, double scale);
-RcppExport SEXP _rangen_rcauchy(SEXP sizeSEXP, SEXP locationSEXP, SEXP scaleSEXP) {
+Rcpp::NumericVector rcauchy(size_t n, double location, double scale);
+RcppExport SEXP _rangen_rcauchy(SEXP nSEXP, SEXP locationSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type location(locationSEXP);
     Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcauchy(size, location, scale));
+    rcpp_result_gen = Rcpp::wrap(rcauchy(n, location, scale));
     return rcpp_result_gen;
 END_RCPP
 }
 // rt
-Rcpp::NumericVector rt(size_t size, double df, double ncp);
-RcppExport SEXP _rangen_rt(SEXP sizeSEXP, SEXP dfSEXP, SEXP ncpSEXP) {
+Rcpp::NumericVector rt(size_t n, double df, double ncp);
+RcppExport SEXP _rangen_rt(SEXP nSEXP, SEXP dfSEXP, SEXP ncpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type df(dfSEXP);
     Rcpp::traits::input_parameter< double >::type ncp(ncpSEXP);
-    rcpp_result_gen = Rcpp::wrap(rt(size, df, ncp));
+    rcpp_result_gen = Rcpp::wrap(rt(n, df, ncp));
     return rcpp_result_gen;
 END_RCPP
 }
 // rpareto
-Rcpp::NumericVector rpareto(size_t size, double shape, double scale);
-RcppExport SEXP _rangen_rpareto(SEXP sizeSEXP, SEXP shapeSEXP, SEXP scaleSEXP) {
+Rcpp::NumericVector rpareto(size_t n, double shape, double scale);
+RcppExport SEXP _rangen_rpareto(SEXP nSEXP, SEXP shapeSEXP, SEXP scaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
     Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
-    rcpp_result_gen = Rcpp::wrap(rpareto(size, shape, scale));
+    rcpp_result_gen = Rcpp::wrap(rpareto(n, shape, scale));
     return rcpp_result_gen;
 END_RCPP
 }
 // rfrechet
-Rcpp::NumericVector rfrechet(size_t size, double shape, double mean, double scale);
-RcppExport SEXP _rangen_rfrechet(SEXP sizeSEXP, SEXP shapeSEXP, SEXP meanSEXP, SEXP scaleSEXP) {
+Rcpp::NumericVector rfrechet(size_t n, double lambda, double mu, double sigma);
+RcppExport SEXP _rangen_rfrechet(SEXP nSEXP, SEXP lambdaSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
-    Rcpp::traits::input_parameter< double >::type mean(meanSEXP);
-    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
-    rcpp_result_gen = Rcpp::wrap(rfrechet(size, shape, mean, scale));
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rfrechet(n, lambda, mu, sigma));
     return rcpp_result_gen;
 END_RCPP
 }
 // rlaplace
-Rcpp::NumericVector rlaplace(size_t size, double mean, double sigma);
-RcppExport SEXP _rangen_rlaplace(SEXP sizeSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
+Rcpp::NumericVector rlaplace(size_t n, double mu, double sigma);
+RcppExport SEXP _rangen_rlaplace(SEXP nSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< double >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
-    rcpp_result_gen = Rcpp::wrap(rlaplace(size, mean, sigma));
+    rcpp_result_gen = Rcpp::wrap(rlaplace(n, mu, sigma));
     return rcpp_result_gen;
 END_RCPP
 }
 // rgumble
-Rcpp::NumericVector rgumble(size_t size, double mean, double sigma);
-RcppExport SEXP _rangen_rgumble(SEXP sizeSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
+Rcpp::NumericVector rgumble(size_t n, double mu, double sigma);
+RcppExport SEXP _rangen_rgumble(SEXP nSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< double >::type mean(meanSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
-    rcpp_result_gen = Rcpp::wrap(rgumble(size, mean, sigma));
+    rcpp_result_gen = Rcpp::wrap(rgumble(n, mu, sigma));
     return rcpp_result_gen;
 END_RCPP
 }
 // rarcsine
-Rcpp::NumericVector rarcsine(size_t size, double min, double max);
-RcppExport SEXP _rangen_rarcsine(SEXP sizeSEXP, SEXP minSEXP, SEXP maxSEXP) {
+Rcpp::NumericVector rarcsine(size_t n, double min, double max);
+RcppExport SEXP _rangen_rarcsine(SEXP nSEXP, SEXP minSEXP, SEXP maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< double >::type min(minSEXP);
     Rcpp::traits::input_parameter< double >::type max(maxSEXP);
-    rcpp_result_gen = Rcpp::wrap(rarcsine(size, min, max));
+    rcpp_result_gen = Rcpp::wrap(rarcsine(n, min, max));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -206,26 +206,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // colSample
-Rcpp::NumericVector colSample(Rcpp::NumericMatrix x, size_t size, Rcpp::LogicalVector replace);
+Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, Rcpp::NumericMatrix size, Rcpp::LogicalVector replace);
 RcppExport SEXP _rangen_colSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type size(sizeSEXP);
     Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type replace(replaceSEXP);
     rcpp_result_gen = Rcpp::wrap(colSample(x, size, replace));
     return rcpp_result_gen;
 END_RCPP
 }
 // rowSample
-Rcpp::NumericVector rowSample(Rcpp::NumericMatrix x, size_t size, Rcpp::LogicalVector replace);
+Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericMatrix size, Rcpp::LogicalVector replace);
 RcppExport SEXP _rangen_rowSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type x(xSEXP);
-    Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type size(sizeSEXP);
     Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type replace(replaceSEXP);
     rcpp_result_gen = Rcpp::wrap(rowSample(x, size, replace));
     return rcpp_result_gen;
