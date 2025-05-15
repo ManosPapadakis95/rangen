@@ -225,7 +225,7 @@ namespace rangen
 		double lambda;
 
 	public:
-		Geom(double prob) : lambda(-log(1 - prob)) {}
+		Geom(double prob) : lambda(std::log(1 - prob)) {}
 
 		inline double operator()()
 		{
