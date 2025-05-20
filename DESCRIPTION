@@ -3,7 +3,7 @@ Type: Package
 Title: Random Number Generators and Utilities
 Description: Provides a collection of random number generators for common and custom distributions, along with utility functions for sampling and simulation.
 Version: 0.0.1
-Date: 2025-05-15
+Date: 2025-05-20
 Authors@R: c(
     person("Manos Papadakis", email = "papadakm95@gmail.com", role = c("aut", "cre", "cph")),
     person("Michail Tsagris", role = c("aut"))
