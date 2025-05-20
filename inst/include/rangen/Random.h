@@ -11,7 +11,6 @@
 //[[Rcpp::depends(zigg, RcppArmadillo)]]
 
 #include <zigg/header>
-#include <RcppArmadillo.h>
 
 namespace rangen
 {
@@ -26,7 +25,7 @@ namespace rangen
 	namespace internal
 	{
 
-		static inline long long int get_current_nanoseconds()
+		inline long long int get_cur_nano()
 		{
 			return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		}
@@ -39,22 +38,33 @@ namespace rangen
 			static constexpr result_type min() { return std::numeric_limits<result_type>::min(); }
 			static constexpr result_type max() { return std::numeric_limits<result_type>::max(); }
 
+			using type = uint64_t;
+
 		protected:
 			struct pcg32_random_t
 			{
-				uint64_t state;
-				uint64_t inc;
-				pcg32_random_t(uint64_t init = get_current_nanoseconds()) : state(init), inc(init) {}
-			} rng;
+				type state;
+				type inc;
+				pcg32_random_t(type init = get_cur_nano()) : state(init), inc(init) {}
+			};
+
+			pcg32_random_t rng;
+
+			Integer_Core(type init = get_cur_nano()) : rng(pcg32_random_t(init)) {}
+
 			result_type pcg32_random_r()
 			{
-				uint64_t oldstate = rng.state;
+				type oldstate = rng.state;
 				// Advance internal state
 				rng.state = oldstate * 6364136223846793005ULL + (rng.inc | 1);
 				// Calculate output function (XSH RR), uses old state for max ILP
 				result_type xorshifted = ((oldstate >> 18u) ^ oldstate) >> 27u;
 				result_type rot = oldstate >> 59u;
 				return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
+			}
+
+			inline void set_seed(type state){
+				rng.state = state;
 			}
 		};
 	}
@@ -72,13 +82,13 @@ namespace rangen
 		}
 
 	public:
-		uniform(result_type max_bound = 0)
+		uniform(result_type max_bound = 0, type seed = internal::get_cur_nano()) : internal::Integer_Core(seed)
 		{
 			this->indices.resize(max_bound);
 			iota(this->indices.begin(), this->indices.end(), 0);
 		}
 
-		uniform(int32_t min_bound, int32_t max_bound)
+		uniform(int32_t min_bound, int32_t max_bound, type seed = internal::get_cur_nano()) : internal::Integer_Core(seed)
 		{
 			this->indices.resize(std::abs(max_bound - min_bound + 1));
 			iota(this->indices.begin(), this->indices.end(), min_bound);
@@ -102,8 +112,8 @@ namespace rangen
 		result_type min_bound, max_bound;
 
 	public:
-		uniform(result_type max_bound = 1) : min_bound(1), max_bound(max_bound) {}
-		uniform(result_type min_bound, result_type max_bound) : min_bound(min_bound), max_bound(max_bound) {}
+		uniform(result_type max_bound = 1, type seed = internal::get_cur_nano()) : min_bound(1), max_bound(max_bound) {}
+		uniform(result_type min_bound, result_type max_bound, type seed = internal::get_cur_nano()) : min_bound(min_bound), max_bound(max_bound) {}
 
 		result_type operator()()
 		{
@@ -118,7 +128,7 @@ namespace rangen
 		const double min, max;
 
 	public:
-		uniform(const double min = 0.0, const double max = 1.0) : min(min), max(max) {}
+		uniform(const double min = 0.0, const double max = 1.0, type seed = internal::get_cur_nano()) : min(min), max(max) {}
 
 		inline double operator()()
 		{
@@ -217,10 +227,10 @@ namespace rangen
 	{
 	public:
 		// rate must be 2 but Gamma divides with 1. So to undo it we need to divided first with 1 and pass it.
-		Chisq(double df) : Gamma(df / 2.0, 1.0 / 2.0) {}
+		Chisq(double df) : Gamma(df * 0.5, 0.5) {}
 	};
 
-	class Geom : public uniform<real, false>
+	class Geom
 	{
 		double lambda;
 
@@ -229,7 +239,7 @@ namespace rangen
 
 		inline double operator()()
 		{
-			return std::floor(std::log(uniform<real, false>::operator()()) / lambda);
+			return std::floor(std::log(rng()) / lambda);
 		}
 	};
 
