@@ -53,19 +53,23 @@ Rarcsine <- function(n, min = 0, max = 1) {
     .Call(`_rangen_rarcsine`, n, min, max)
 }
 
-Sample.int <- function(n, size = n, replace = FALSE) {
-    .Call(`_rangen_sample_int`, n, size, replace)
+Sample.int <- function(n, size = n, replace = FALSE, seed = nanoTime()) {
+    .Call(`_rangen_sample_int`, n, size, replace, seed)
 }
 
-Sample <- function(x, size = n, replace = FALSE) {
-    .Call(`_rangen_sample`, x, size, replace)
+Sample <- function(x, size = length(x), replace = FALSE, seed = nanoTime()) {
+    .Call(`_rangen_sample`, x, size, replace, seed)
 }
 
-colSample <- function(x, size = rep_len(n, ncol(x)), replace = rep_len(FALSE, ncol(x))) {
-    .Call(`_rangen_colSample`, x, size, replace)
+colSample <- function(x, size = rep_len(nrow(x), ncol(x)), replace = rep_len(FALSE, ncol(x)), parallel = FALSE, cores = 0, seed = nanoTime()) {
+    .Call(`_rangen_colSample`, x, size, replace, parallel, cores, seed)
 }
 
-rowSample <- function(x, size = rep_len(n, nrow(x)), replace = rep_len(FALSE, nrow(x))) {
-    .Call(`_rangen_rowSample`, x, size, replace)
+rowSample <- function(x, size = rep_len(ncol(x), nrow(x)), replace = rep_len(FALSE, nrow(x)), parallel = FALSE, cores = 0, seed = nanoTime()) {
+    .Call(`_rangen_rowSample`, x, size, replace, parallel, cores, seed)
+}
+
+nanoTime <- function() {
+    .Call(`_rangen_nanoTime`)
 }
 
