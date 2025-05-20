@@ -4,11 +4,11 @@
 \alias{rangen-package}
 \docType{package}
 \title{
-Really fast R functions
+Random Number Generators and Utilities
 }
 
 \description{
-A collection of rangen functions for data analysis. 
+Provides a collection of random number generators for common and custom distributions, along with utility functions for sampling and simulation.
 }
 
 \details{
@@ -29,10 +29,5 @@ License: \tab \packageLicense{rangen}\cr
 }
 
 \section{Maintainers }{
-Maintainer: \packageMaintainer{rangen}
+\packageMaintainer{rangen}
 }
-
-%\note{
-%Acknowledgments:
-%}
-

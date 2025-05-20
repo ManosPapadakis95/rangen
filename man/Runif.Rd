@@ -123,12 +123,17 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x_unif <- Runif(1000, 0, 1)
-x_beta <- Rbeta(1000, 2, 5)
-x_exp <- Rexp(1000, 1.5)
-x_chisq <- Rchisq(1000, 4)
-x_gamma <- Rgamma(1000, 2, 2)
-x_cauchy <- Rcauchy(1000, 0, 1)
-x_t <- Rt(1000, 5, 2)
-x_geom <- Rgeom(1000, 0.5)
+x_unif <- Runif(10, 0, 1)
+x_beta <- Rbeta(10, 2, 5)
+x_exp <- Rexp(10, 1.5)
+x_chisq <- Rchisq(10, 4)
+x_gamma <- Rgamma(10, 2, 2)
+x_cauchy <- Rcauchy(10, 0, 1)
+x_t <- Rt(10, 5, 2)
+x_geom <- Rgeom(10, 0.5)
+x_pareto <- Rpareto(10, shape = 2, scale = 1)
+x_frechet <- Rfrechet(10, lambda = 1, mu = 0, sigma = 1)
+x_laplace <- Rlaplace(10, mu = 0, sigma = 1)
+x_gumblet <- Rgumblet(10, mu = 0, sigma = 1)
+x_arcsine <- Rarcsine(10, min = 0, max = 1)
 }
