@@ -40,6 +40,10 @@ namespace rangen
 
 			using type = uint64_t;
 
+			inline void setSeed(type state){
+				rng.state = state;
+			}
+
 		protected:
 			struct pcg32_random_t
 			{
@@ -62,14 +66,10 @@ namespace rangen
 				result_type rot = oldstate >> 59u;
 				return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 			}
-
-			inline void set_seed(type state){
-				rng.state = state;
-			}
 		};
 	}
 
-	template <class T, bool replace = false>
+	template <typename T, bool replace = false>
 	class uniform : public internal::Integer_Core
 	{
 
@@ -82,14 +82,15 @@ namespace rangen
 		}
 
 	public:
-		uniform(result_type max_bound = 0, type seed = internal::get_cur_nano()) : internal::Integer_Core(seed)
+
+		uniform(int32_t min_bound = 0, int32_t max_bound = 0)
 		{
-			this->indices.resize(max_bound);
-			iota(this->indices.begin(), this->indices.end(), 0);
+			this->set_bounds(min_bound, max_bound);
+			this->indices.resize(std::abs(max_bound - min_bound + 1));
+			iota(this->indices.begin(), this->indices.end(), min_bound);
 		}
 
-		uniform(int32_t min_bound, int32_t max_bound, type seed = internal::get_cur_nano()) : internal::Integer_Core(seed)
-		{
+		void set_bounds(int32_t min_bound, int32_t max_bound){
 			this->indices.resize(std::abs(max_bound - min_bound + 1));
 			iota(this->indices.begin(), this->indices.end(), min_bound);
 		}
@@ -103,19 +104,23 @@ namespace rangen
 		}
 	};
 
-	template <class T>
+	template <typename T>
 	class uniform<T, true> : public internal::Integer_Core
 	{
 		// *Really* minimal PCG32 code / (c) 2014 M.E. O'Neill / pcg-random.org
 		// Licensed under Apache License 2.0 (NO WARRANTY, etc. see website)
 
-		result_type min_bound, max_bound;
+		int32_t min_bound, max_bound;
 
 	public:
-		uniform(result_type max_bound = 1, type seed = internal::get_cur_nano()) : min_bound(1), max_bound(max_bound) {}
-		uniform(result_type min_bound, result_type max_bound, type seed = internal::get_cur_nano()) : min_bound(min_bound), max_bound(max_bound) {}
+		uniform(int32_t min_bound = 0, int32_t max_bound = 0) : min_bound(min_bound), max_bound(max_bound) {}
 
-		result_type operator()()
+		void set_bounds(int32_t min_bound, int32_t max_bound){
+			this->min_bound = min_bound; 
+			this->max_bound = max_bound;
+		}
+
+		int32_t operator()()
 		{
 			return this->pcg32_random_r() % this->max_bound + this->min_bound;
 		}
@@ -125,10 +130,15 @@ namespace rangen
 	class uniform<real, false> : public internal::Integer_Core
 	{
 
-		const double min, max;
+		double min, max;
 
 	public:
-		uniform(const double min = 0.0, const double max = 1.0, type seed = internal::get_cur_nano()) : min(min), max(max) {}
+		uniform(double min = 0.0, double max = 1.0) : min(min), max(max) {}
+
+		void set_bounds(double min, double max){
+			this->min = min; 
+			this->max = max;
+		}
 
 		inline double operator()()
 		{
@@ -136,7 +146,10 @@ namespace rangen
 		}
 	};
 
-	static uniform<real> rng(0, 1);
+	inline uniform<integer> irng;
+	inline uniform<integer, true> irng_rep;
+	inline uniform<real> rng(0, 1);
+	inline uniform<real> rng2;
 
 	class Gamma
 	{
@@ -329,6 +342,14 @@ namespace rangen
 			return min + (max - min) * k * k;
 		}
 	};
+
+	inline void setSeed(const size_t s){
+		ziggurat.setSeed(static_cast<uint32_t>(s));
+		rng.setSeed(static_cast<uint64_t>(s));
+		rng2.setSeed(static_cast<uint64_t>(s));
+		irng.setSeed(static_cast<uint64_t>(s));
+		irng_rep.setSeed(static_cast<uint64_t>(s));
+	}
 	
 }
 
