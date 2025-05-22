@@ -34,6 +34,7 @@ Rfrechet(n, lambda = 1, mu = 0, sigma = 1)
 Rlaplace(n, mu = 0, sigma = 1)
 Rgumblet(n, mu = 0, sigma = 1)
 Rarcsine(n, min = 0, max = 1)
+set_seed(seed)
 }
 
 \arguments{
@@ -73,12 +74,15 @@ The non-centrality parameter.
 \item{prob}{
 The probability of success on each trial.
 }
+\item{seed}{
+A single value, interpreted as an integer.
+}
 }
 
 \details{
     
 \itemize{
-\item \code{Runif}: generates random values from the uniform distribution, similar to R's built-in \code{\link{runif}} function. The type used is \eqn{min + (max - min) \cdot U}, where \code{U} is a uniform random variable in the interval (0, 1).
+\item \code{Runif}: generates random values from the uniform distribution, similar to R's built-in \link{runif} function. The type used is \eqn{min + (max - min) \cdot U}, where \code{U} is a uniform random variable in the interval (0, 1).
 
 \item \code{Rbeta}: generates random values from the beta distribution with parameters \code{alpha} and \code{beta}. The type used involves generating two gamma-distributed variables \( X_1 \) and \( X_2 \), and returning \eqn{\frac{X_1}{X_1 + X_2}}, where \( X_1 \) and \( X_2 \) have the shape parameters \code{alpha} and \code{beta}, respectively.
 
@@ -113,13 +117,11 @@ Each function returns a vector with simulated values from the respective distrib
 }
 
 \author{
-Manos Papadakis.
-
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \seealso{
-\code{\link{runif}}, \code{\link{rbeta}}, \code{\link{rexp}}, \code{\link{rchisq}}, \code{\link{rgamma}}, \code{\link{rcauchy}}, \code{\link{rt}}, \code{\link{rgeom}}
+\link{runif}, \link{rbeta}, \link{rexp}, \link{rchisq}, \link{rgamma}, \link{rcauchy}, \link{rt}, \link{rgeom}
 }
 
 \examples{

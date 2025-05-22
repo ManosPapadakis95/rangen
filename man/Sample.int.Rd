@@ -41,35 +41,35 @@ Default value is 0 and it means the maximum supported cores.
 }
 
 \details{
-These functions provide flexible sampling utilities similar in purpose to R's base functions \code{\link{sample.int}} and \code{\link{sample}}. Each function operates on a different structure:
+These functions provide flexible sampling utilities similar in purpose to R's base functions \link{sample.int} and \link{sample}. Each function operates on a different structure:
 
 \itemize{
-  \item{\code{Sample.int}: }{Generates a random sample of integers from \code{1} to \code{n}.}
-  \item{\code{Sample}: }{Samples elements from the vector \code{x}.}
-  \item{\code{colSample}: }{Performs column-wise sampling on a matrix or data frame, selecting \code{size[i]} elements from each column \code{i}.}
-  \item{\code{rowSample}: }{Performs row-wise sampling on a matrix or data frame, selecting \code{size[i]} elements from each row \code{i}.}
+  \item \code{Sample.int}: Generates a random sample of integers from \code{1} to \code{n}.
+  \item \code{Sample}:     Samples elements from the vector \code{x}.
+  \item \code{colSample}:  Performs column-wise sampling on a matrix or data frame, selecting \code{size[i]} elements from each column \code{i}.
+  \item \code{rowSample}:  Performs row-wise sampling on a matrix or data frame, selecting \code{size[i]} elements from each row \code{i}.
 }
 
 All functions support sampling with or without replacement.
+Parallel versions do not support seeding.
 }
 
 \value{
-\itemize{
-  \item{\code{Sample.int}, \code{Sample}: }{A vector of sampled values.}
-  \item{\code{colSample}, \code{rowSample}: }{A matrix or data frame containing the sampled elements.}
+\item{Sample.int, Sample}{
+A vector of sampled values.
+}
+\item{colSample, rowSample}{
+A matrix or data frame containing the sampled elements.
 }
 }
 
 
 \author{
-Manos Papadakis.
-
-R implementation: Manos Papadakis <papadakm95@gmail.com>.
-R documentation: Michail Tsagris <mtsagris@yahoo.gr>.
+R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \seealso{
-\code{\link{Runif}, \link{rbeta1}, \link{riag}
+\code{\link{sample}, \link{sample.int} 
 }
 }
 
@@ -78,7 +78,7 @@ R documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 x <- Sample.int(10, 1000, replace = TRUE)
 
 # Sample from the vector 'x' (faster than base::sample)
-xs <- Sample(x, length(x))
+xs <- Sample(x)
 
 # Create a matrix and perform column-wise sampling
 # 'size' must have the same length as the number of columns
