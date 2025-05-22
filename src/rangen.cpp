@@ -79,26 +79,26 @@ Rcpp::NumericVector rarcsine(size_t n, double min = 0.0, double max = 1.0)
     return rangen::rarcsine<Rcpp::NumericVector>(n, min, max);
 }
 
-//[[Rcpp::export(name = "Sample.int", signature = {n, size = n, replace = FALSE, seed = nanoTime()})]]
-Rcpp::IntegerVector sample_int(size_t n, size_t size, const bool replace = false, const size_t seed = 0)
+//[[Rcpp::export(name = "Sample.int", signature = {n, size = n, replace = FALSE})]]
+Rcpp::IntegerVector sample_int(size_t n, size_t size, const bool replace = false)
 {
     return rangen::sample<Rcpp::IntegerVector>(n, size, replace);
 }
 
-//[[Rcpp::export(name = "Sample", signature = {x, size = length(x), replace = FALSE, seed = nanoTime()})]]
-Rcpp::NumericVector sample(Rcpp::NumericVector x, size_t size, const bool replace = false, const size_t seed = 0)
+//[[Rcpp::export(name = "Sample", signature = {x, size = length(x), replace = FALSE})]]
+Rcpp::NumericVector sample(Rcpp::NumericVector x, size_t size, const bool replace = false)
 {
     return rangen::sample<Rcpp::NumericVector>(x, size, replace);
 }
 
-//[[Rcpp::export(name = "colSample", signature = {x, size = rep_len(nrow(x), ncol(x)), replace = rep_len(FALSE, ncol(x)), parallel = FALSE, cores = 0, seed = nanoTime()})]]
-Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = 0, const size_t seed = 0)
+//[[Rcpp::export(name = "colSample", signature = {x, size = rep_len(nrow(x), ncol(x)), replace = rep_len(FALSE, ncol(x)), parallel = FALSE, cores = 0})]]
+Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = 0)
 {
     return rangen::colSample(x, size, replace, parallel, cores);
 }
 
-//[[Rcpp::export(name = "rowSample", signature = {x, size = rep_len(ncol(x), nrow(x)), replace = rep_len(FALSE, nrow(x)), parallel = FALSE, cores = 0, seed = nanoTime()})]]
-Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = 0, const size_t seed = 0)
+//[[Rcpp::export(name = "rowSample", signature = {x, size = rep_len(ncol(x), nrow(x)), replace = rep_len(FALSE, nrow(x)), parallel = FALSE, cores = 0})]]
+Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = 0)
 {
     return rangen::rowSample(x, size, replace, parallel, cores);
 }
@@ -106,4 +106,9 @@ Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, R
 //[[Rcpp::export]]
 double nanoTime(){
     return rangen::internal::get_cur_nano();
+}
+
+//[[Rcpp::export(signature = {seed = nanoTime()})]]
+void set_seed(double seed){
+    return rangen::setSeed(static_cast<size_t>(seed));
 }

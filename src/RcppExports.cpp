@@ -180,36 +180,34 @@ BEGIN_RCPP
 END_RCPP
 }
 // sample_int
-Rcpp::IntegerVector sample_int(size_t n, size_t size, const bool replace, const size_t seed);
-RcppExport SEXP _rangen_sample_int(SEXP nSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP seedSEXP) {
+Rcpp::IntegerVector sample_int(size_t n, size_t size, const bool replace);
+RcppExport SEXP _rangen_sample_int(SEXP nSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
     Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
     Rcpp::traits::input_parameter< const bool >::type replace(replaceSEXP);
-    Rcpp::traits::input_parameter< const size_t >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(sample_int(n, size, replace, seed));
+    rcpp_result_gen = Rcpp::wrap(sample_int(n, size, replace));
     return rcpp_result_gen;
 END_RCPP
 }
 // sample
-Rcpp::NumericVector sample(Rcpp::NumericVector x, size_t size, const bool replace, const size_t seed);
-RcppExport SEXP _rangen_sample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP seedSEXP) {
+Rcpp::NumericVector sample(Rcpp::NumericVector x, size_t size, const bool replace);
+RcppExport SEXP _rangen_sample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< size_t >::type size(sizeSEXP);
     Rcpp::traits::input_parameter< const bool >::type replace(replaceSEXP);
-    Rcpp::traits::input_parameter< const size_t >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(sample(x, size, replace, seed));
+    rcpp_result_gen = Rcpp::wrap(sample(x, size, replace));
     return rcpp_result_gen;
 END_RCPP
 }
 // colSample
-Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel, const size_t cores, const size_t seed);
-RcppExport SEXP _rangen_colSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP parallelSEXP, SEXP coresSEXP, SEXP seedSEXP) {
+Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel, const size_t cores);
+RcppExport SEXP _rangen_colSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP parallelSEXP, SEXP coresSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -218,14 +216,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type replace(replaceSEXP);
     Rcpp::traits::input_parameter< const bool >::type parallel(parallelSEXP);
     Rcpp::traits::input_parameter< const size_t >::type cores(coresSEXP);
-    Rcpp::traits::input_parameter< const size_t >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(colSample(x, size, replace, parallel, cores, seed));
+    rcpp_result_gen = Rcpp::wrap(colSample(x, size, replace, parallel, cores));
     return rcpp_result_gen;
 END_RCPP
 }
 // rowSample
-Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel, const size_t cores, const size_t seed);
-RcppExport SEXP _rangen_rowSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP parallelSEXP, SEXP coresSEXP, SEXP seedSEXP) {
+Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel, const size_t cores);
+RcppExport SEXP _rangen_rowSample(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP parallelSEXP, SEXP coresSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -234,8 +231,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type replace(replaceSEXP);
     Rcpp::traits::input_parameter< const bool >::type parallel(parallelSEXP);
     Rcpp::traits::input_parameter< const size_t >::type cores(coresSEXP);
-    Rcpp::traits::input_parameter< const size_t >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(rowSample(x, size, replace, parallel, cores, seed));
+    rcpp_result_gen = Rcpp::wrap(rowSample(x, size, replace, parallel, cores));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -247,6 +243,16 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     rcpp_result_gen = Rcpp::wrap(nanoTime());
     return rcpp_result_gen;
+END_RCPP
+}
+// set_seed
+void set_seed(double seed);
+RcppExport SEXP _rangen_set_seed(SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type seed(seedSEXP);
+    set_seed(seed);
+    return R_NilValue;
 END_RCPP
 }
 
@@ -264,11 +270,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rangen_rlaplace", (DL_FUNC) &_rangen_rlaplace, 3},
     {"_rangen_rgumble", (DL_FUNC) &_rangen_rgumble, 3},
     {"_rangen_rarcsine", (DL_FUNC) &_rangen_rarcsine, 3},
-    {"_rangen_sample_int", (DL_FUNC) &_rangen_sample_int, 4},
-    {"_rangen_sample", (DL_FUNC) &_rangen_sample, 4},
-    {"_rangen_colSample", (DL_FUNC) &_rangen_colSample, 6},
-    {"_rangen_rowSample", (DL_FUNC) &_rangen_rowSample, 6},
+    {"_rangen_sample_int", (DL_FUNC) &_rangen_sample_int, 3},
+    {"_rangen_sample", (DL_FUNC) &_rangen_sample, 3},
+    {"_rangen_colSample", (DL_FUNC) &_rangen_colSample, 5},
+    {"_rangen_rowSample", (DL_FUNC) &_rangen_rowSample, 5},
     {"_rangen_nanoTime", (DL_FUNC) &_rangen_nanoTime, 0},
+    {"_rangen_set_seed", (DL_FUNC) &_rangen_set_seed, 1},
     {NULL, NULL, 0}
 };
 
