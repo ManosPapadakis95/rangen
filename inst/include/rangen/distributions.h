@@ -181,58 +181,80 @@ namespace rangen
 			return res;
 		}
 
-		template <class T, class Generator, class... Args>
-		T generic(size_t size, Args... args)
+		template <class T, class Generator>
+		T generic(size_t size, Generator rng)
 		{
 			T res = rangen_internal::getVector<T>(size);
 
-			Generator rng(args...);
 			for (size_t i = 0; i < size; ++i)
 			{
 				res[i] = rng();
 			}
 			return res;
 		}
+
+		template <class T, class Generator, class... Args>
+		T generic(size_t size, Args... args)
+		{
+			Generator rng(args...);
+			return generic<T>(size, rng);
+		}
 	}
 
 	template <class Ret, class T = Ret>
-	Ret sample(T x, size_t size, const bool replace = false, const size_t seed = internal::get_cur_nano())
+	Ret sample(T x, size_t size, const bool replace = false, const bool thread_safe = false)
 	{
 		Ret res = rangen_internal::getVector<Ret>(size);
 		size_t n = rangen_internal::size(x);
 
 		if (replace)
 		{
-			uniform<integer, true> rng(0, n - 1, seed);
-			for (size_t i = 0; i < size; ++i)
-			{
-				res[i] = x[rng()];
+			if(thread_safe){
+				uniform<integer, true> rng(0, n - 1);
+				for (size_t i = 0; i < size; ++i)
+				{
+					res[i] = x[rng()];
+				}
+			}else{
+				irng_rep.set_bounds(0,n-1);
+				for (size_t i = 0; i < size; ++i)
+				{
+					res[i] = x[irng_rep()];
+				}
 			}
 		}
 		else
 		{
-			uniform<integer> rng(0, n - 1, seed);
-			for (size_t i = 0; i < size; ++i)
-			{
-				res[i] = x[rng()];
+			if(thread_safe){
+				uniform<integer> rng(0, n - 1);
+				for (size_t i = 0; i < size; ++i)
+				{
+					res[i] = x[rng()];
+				}
+			}else{
+				irng.set_bounds(0,n-1);
+				for (size_t i = 0; i < size; ++i)
+				{
+					res[i] = x[irng()];
+				}
 			}
 		}
 		return res;
 	}
 
 	template <class Ret>
-	Ret sample(size_t x, size_t size, const bool replace = false, const size_t seed = internal::get_cur_nano())
+	Ret sample(size_t x, size_t size, const bool replace = false, const bool thread_safe = false)
 	{
 		Ret res = rangen_internal::getVector<Ret>(size);
 		for (size_t i = 0; i < x; ++i)
 		{
 			res[i] = i + 1;
 		}
-		return sample<Ret>(res, size, replace, seed);
+		return sample<Ret>(res, size, replace, thread_safe);
 	}
 
 	template <class Ret, class T, class S, class L>
-	Ret colSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads(), const size_t seed = internal::get_cur_nano())
+	Ret colSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads())
 	{
 		const size_t n = rangen_internal::ncol(x);
 		const size_t m = *std::max_element(size.begin(), size.end());
@@ -253,15 +275,15 @@ namespace rangen
 			{
 				if constexpr (rangen_internal::is_arma_mat<T>)
 				{
-					res.col(i) = sample<arma::Col<typename T::value_type>>(x.col(i), size[i], replace[i], seed);
+					res.col(i) = sample<arma::Col<typename T::value_type>>(x.col(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (rangen_internal::is_rcpp_mat<T>)
 				{
-					res.column(i) = sample<decltype(x.column(i))>(x.column(i), size[i], replace[i], seed);
+					res.column(i) = sample<decltype(x.column(i))>(x.column(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (!rangen_internal::is_arma_mat<T> && !rangen_internal::is_rcpp_mat<T>)
 				{
-					res.column(i) = sample<typename T::col_type>(x.column(i), size[i], replace[i], seed);
+					res.column(i) = sample<typename T::col_type>(x.column(i), size[i], replace[i], parallel);
 				}
 			}
 		}
@@ -271,15 +293,15 @@ namespace rangen
 			{
 				if constexpr (rangen_internal::is_arma_mat<T>)
 				{
-					res.col(i) = sample<arma::Col<typename T::value_type>>(x.col(i), size[i], replace[i], seed);
+					res.col(i) = sample<arma::Col<typename T::value_type>>(x.col(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (rangen_internal::is_rcpp_mat<T>)
 				{
-					res.column(i) = sample<decltype(x.column(i))>(x.column(i), size[i], replace[i], seed);
+					res.column(i) = sample<decltype(x.column(i))>(x.column(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (!rangen_internal::is_arma_mat<T> && !rangen_internal::is_rcpp_mat<T>)
 				{
-					res.column(i) = sample<typename T::col_type>(x.column(i), size[i], replace[i], seed);
+					res.column(i) = sample<typename T::col_type>(x.column(i), size[i], replace[i], parallel);
 				}
 			}
 		}
@@ -287,7 +309,7 @@ namespace rangen
 	}
 
 	template <class Ret, class T, class S, class L>
-	Ret rowSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads(), const size_t seed = internal::get_cur_nano())
+	Ret rowSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads())
 	{
 		const size_t m = rangen_internal::nrow(x);
 		const size_t n = *std::max_element(size.begin(), size.end());
@@ -308,15 +330,15 @@ namespace rangen
 			{
 				if constexpr (rangen_internal::is_arma_mat<T>)
 				{
-					res.row(i) = sample<arma::Row<typename T::value_type>>(x.row(i), size[i], replace[i], seed);
+					res.row(i) = sample<arma::Row<typename T::value_type>>(x.row(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (rangen_internal::is_rcpp_mat<T>)
 				{
-					res.row(i) = sample<decltype(x.row(i))>(x.row(i), size[i], replace[i], seed);
+					res.row(i) = sample<decltype(x.row(i))>(x.row(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (!rangen_internal::is_arma_mat<T> && !rangen_internal::is_rcpp_mat<T>)
 				{
-					res.row(i) = sample<typename T::row_type>(x.row(i), size[i], replace[i], seed);
+					res.row(i) = sample<typename T::row_type>(x.row(i), size[i], replace[i], parallel);
 				}
 			}
 		}
@@ -326,15 +348,15 @@ namespace rangen
 			{
 				if constexpr (rangen_internal::is_arma_mat<T>)
 				{
-					res.row(i) = sample<arma::Row<typename T::value_type>>(x.row(i), size[i], replace[i], seed);
+					res.row(i) = sample<arma::Row<typename T::value_type>>(x.row(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (rangen_internal::is_rcpp_mat<T>)
 				{
-					res.row(i) = sample<decltype(x.row(i))>(x.row(i), size[i], replace[i], seed);
+					res.row(i) = sample<decltype(x.row(i))>(x.row(i), size[i], replace[i], parallel);
 				}
 				else if constexpr (!rangen_internal::is_arma_mat<T> && !rangen_internal::is_rcpp_mat<T>)
 				{
-					res.row(i) = sample<typename T::row_type>(x.row(i), size[i], replace[i], seed);
+					res.row(i) = sample<typename T::row_type>(x.row(i), size[i], replace[i], parallel);
 				}
 			}
 		}
@@ -344,7 +366,8 @@ namespace rangen
 	template <class T>
 	T runif(size_t size, double min = 0.0, double max = 1.0)
 	{
-		return rangen_internal::generic<T, uniform<real>>(size, min, max);
+		rng2.set_bounds(min, max);
+		return rangen_internal::generic<T>(size, rng2);
 	}
 
 	template <class T>
