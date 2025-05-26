@@ -12,6 +12,7 @@
 \alias{Rlaplace}
 \alias{Rgumblet}
 \alias{Rarcsine}
+\alias{set_seed}
 \title{
 Random values simulation from various distributions
 }
@@ -34,7 +35,7 @@ Rfrechet(n, lambda = 1, mu = 0, sigma = 1)
 Rlaplace(n, mu = 0, sigma = 1)
 Rgumblet(n, mu = 0, sigma = 1)
 Rarcsine(n, min = 0, max = 1)
-set_seed(seed)
+set_seed(seed = nanoTime())
 }
 
 \arguments{
@@ -80,7 +81,6 @@ A single value, interpreted as an integer.
 }
 
 \details{
-    
 \itemize{
 \item \code{Runif}: generates random values from the uniform distribution, similar to R's built-in \link{runif} function. The type used is \eqn{min + (max - min) \cdot U}, where \code{U} is a uniform random variable in the interval (0, 1).
 
@@ -107,8 +107,9 @@ A single value, interpreted as an integer.
 \item \code{Rgumblet}: generates random values from the Gumbel (type I extreme value) distribution with parameters \code{mu} and \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \log(-\log U)}, where \code{U} is a uniform random variable in (0, 1).
 
 \item \code{Rarcsine}: generates random values from the arcsine distribution over the interval \code{[min, max]}. The type used is \eqn{\text{min} + (\text{max} - \text{min}) \cdot \sin^2(\pi U / 2)}, where \code{U} is a uniform random variable in (0, 1).
-}
 
+\item \code{set_seed}: Set the seed for the Rngs. Not working with parallel version of column - row sample.
+}
 }
 
 

@@ -12,25 +12,18 @@ Functions to get the current time in different units.
 nanoTime()
 }
 
-\arguments{
-}
-
 \details{
-    
 \itemize{
 \item \code{nanoTime}: The current nanoseconds of the system.
 }
 }
-
 
 \value{
 Each function returns a numeric value.
 }
 
 \author{
-Manos Papadakis.
-
-R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
+Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \seealso{
