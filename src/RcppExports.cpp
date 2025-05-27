@@ -12,19 +12,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// runif
-Rcpp::NumericVector runif(size_t n, double min, double max);
-RcppExport SEXP _rangen_runif(SEXP nSEXP, SEXP minSEXP, SEXP maxSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
-    Rcpp::traits::input_parameter< double >::type min(minSEXP);
-    Rcpp::traits::input_parameter< double >::type max(maxSEXP);
-    rcpp_result_gen = Rcpp::wrap(runif(n, min, max));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rbeta
 Rcpp::NumericVector rbeta(size_t n, double alpha, double beta);
 RcppExport SEXP _rangen_rbeta(SEXP nSEXP, SEXP alphaSEXP, SEXP betaSEXP) {
@@ -179,6 +166,401 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rnorm
+Rcpp::NumericVector rnorm(size_t n);
+RcppExport SEXP _rangen_rnorm(SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(rnorm(n));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRunif
+Rcpp::NumericVector colRunif(size_t nrow, size_t ncol, Rcpp::NumericVector min, Rcpp::NumericVector max);
+RcppExport SEXP _rangen_colRunif(SEXP nrowSEXP, SEXP ncolSEXP, SEXP minSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type min(minSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRunif(nrow, ncol, min, max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRbeta
+Rcpp::NumericVector colRbeta(size_t nrow, size_t ncol, Rcpp::NumericVector alpha, Rcpp::NumericVector beta);
+RcppExport SEXP _rangen_colRbeta(SEXP nrowSEXP, SEXP ncolSEXP, SEXP alphaSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRbeta(nrow, ncol, alpha, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRexp
+Rcpp::NumericVector colRexp(size_t nrow, size_t ncol, Rcpp::NumericVector rate);
+RcppExport SEXP _rangen_colRexp(SEXP nrowSEXP, SEXP ncolSEXP, SEXP rateSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type rate(rateSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRexp(nrow, ncol, rate));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRchisq
+Rcpp::NumericVector colRchisq(size_t nrow, size_t ncol, Rcpp::NumericVector df);
+RcppExport SEXP _rangen_colRchisq(SEXP nrowSEXP, SEXP ncolSEXP, SEXP dfSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type df(dfSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRchisq(nrow, ncol, df));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRgamma
+Rcpp::NumericVector colRgamma(size_t nrow, size_t ncol, Rcpp::NumericVector shape, Rcpp::NumericVector rate);
+RcppExport SEXP _rangen_colRgamma(SEXP nrowSEXP, SEXP ncolSEXP, SEXP shapeSEXP, SEXP rateSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type rate(rateSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRgamma(nrow, ncol, shape, rate));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRgeom
+Rcpp::NumericVector colRgeom(size_t nrow, size_t ncol, Rcpp::NumericVector prob);
+RcppExport SEXP _rangen_colRgeom(SEXP nrowSEXP, SEXP ncolSEXP, SEXP probSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type prob(probSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRgeom(nrow, ncol, prob));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRcauchy
+Rcpp::NumericVector colRcauchy(size_t nrow, size_t ncol, Rcpp::NumericVector location, Rcpp::NumericVector scale);
+RcppExport SEXP _rangen_colRcauchy(SEXP nrowSEXP, SEXP ncolSEXP, SEXP locationSEXP, SEXP scaleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type location(locationSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRcauchy(nrow, ncol, location, scale));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRt
+Rcpp::NumericVector colRt(size_t nrow, size_t ncol, Rcpp::NumericVector df, Rcpp::NumericVector ncp);
+RcppExport SEXP _rangen_colRt(SEXP nrowSEXP, SEXP ncolSEXP, SEXP dfSEXP, SEXP ncpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type ncp(ncpSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRt(nrow, ncol, df, ncp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRpareto
+Rcpp::NumericVector colRpareto(size_t nrow, size_t ncol, Rcpp::NumericVector shape, Rcpp::NumericVector scale);
+RcppExport SEXP _rangen_colRpareto(SEXP nrowSEXP, SEXP ncolSEXP, SEXP shapeSEXP, SEXP scaleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRpareto(nrow, ncol, shape, scale));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRfrechet
+Rcpp::NumericVector colRfrechet(size_t nrow, size_t ncol, Rcpp::NumericVector lambda, Rcpp::NumericVector mu, Rcpp::NumericVector sigma);
+RcppExport SEXP _rangen_colRfrechet(SEXP nrowSEXP, SEXP ncolSEXP, SEXP lambdaSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRfrechet(nrow, ncol, lambda, mu, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRlaplace
+Rcpp::NumericVector colRlaplace(size_t nrow, size_t ncol, Rcpp::NumericVector mu, Rcpp::NumericVector sigma);
+RcppExport SEXP _rangen_colRlaplace(SEXP nrowSEXP, SEXP ncolSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRlaplace(nrow, ncol, mu, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRgumble
+Rcpp::NumericVector colRgumble(size_t nrow, size_t ncol, Rcpp::NumericVector mu, Rcpp::NumericVector sigma);
+RcppExport SEXP _rangen_colRgumble(SEXP nrowSEXP, SEXP ncolSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRgumble(nrow, ncol, mu, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRarcsine
+Rcpp::NumericVector colRarcsine(size_t nrow, size_t ncol, Rcpp::NumericVector min, Rcpp::NumericVector max);
+RcppExport SEXP _rangen_colRarcsine(SEXP nrowSEXP, SEXP ncolSEXP, SEXP minSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type min(minSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRarcsine(nrow, ncol, min, max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// colRnorm
+Rcpp::NumericVector colRnorm(size_t nrow, size_t ncol);
+RcppExport SEXP _rangen_colRnorm(SEXP nrowSEXP, SEXP ncolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    rcpp_result_gen = Rcpp::wrap(colRnorm(nrow, ncol));
+    return rcpp_result_gen;
+END_RCPP
+}
+// runif_mat
+Rcpp::NumericMatrix runif_mat(size_t nrow, size_t ncol, double min, double max);
+RcppExport SEXP _rangen_runif_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP minSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type min(minSEXP);
+    Rcpp::traits::input_parameter< double >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(runif_mat(nrow, ncol, min, max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rbeta_mat
+Rcpp::NumericMatrix rbeta_mat(size_t nrow, size_t ncol, double alpha, double beta);
+RcppExport SEXP _rangen_rbeta_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP alphaSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rbeta_mat(nrow, ncol, alpha, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rexp_mat
+Rcpp::NumericMatrix rexp_mat(size_t nrow, size_t ncol, double rate);
+RcppExport SEXP _rangen_rexp_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP rateSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type rate(rateSEXP);
+    rcpp_result_gen = Rcpp::wrap(rexp_mat(nrow, ncol, rate));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rchisq_mat
+Rcpp::NumericMatrix rchisq_mat(size_t nrow, size_t ncol, double df);
+RcppExport SEXP _rangen_rchisq_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP dfSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type df(dfSEXP);
+    rcpp_result_gen = Rcpp::wrap(rchisq_mat(nrow, ncol, df));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rgamma_mat
+Rcpp::NumericMatrix rgamma_mat(size_t nrow, size_t ncol, double shape, double rate);
+RcppExport SEXP _rangen_rgamma_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP shapeSEXP, SEXP rateSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< double >::type rate(rateSEXP);
+    rcpp_result_gen = Rcpp::wrap(rgamma_mat(nrow, ncol, shape, rate));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rgeom_mat
+Rcpp::NumericMatrix rgeom_mat(size_t nrow, size_t ncol, double prob);
+RcppExport SEXP _rangen_rgeom_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP probSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type prob(probSEXP);
+    rcpp_result_gen = Rcpp::wrap(rgeom_mat(nrow, ncol, prob));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcauchy_mat
+Rcpp::NumericMatrix rcauchy_mat(size_t nrow, size_t ncol, double location, double scale);
+RcppExport SEXP _rangen_rcauchy_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP locationSEXP, SEXP scaleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type location(locationSEXP);
+    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcauchy_mat(nrow, ncol, location, scale));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rt_mat
+Rcpp::NumericMatrix rt_mat(size_t nrow, size_t ncol, double df, double ncp);
+RcppExport SEXP _rangen_rt_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP dfSEXP, SEXP ncpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< double >::type ncp(ncpSEXP);
+    rcpp_result_gen = Rcpp::wrap(rt_mat(nrow, ncol, df, ncp));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rpareto_mat
+Rcpp::NumericMatrix rpareto_mat(size_t nrow, size_t ncol, double shape, double scale);
+RcppExport SEXP _rangen_rpareto_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP shapeSEXP, SEXP scaleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(rpareto_mat(nrow, ncol, shape, scale));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rfrechet_mat
+Rcpp::NumericMatrix rfrechet_mat(size_t nrow, size_t ncol, double lambda, double mu, double sigma);
+RcppExport SEXP _rangen_rfrechet_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP lambdaSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rfrechet_mat(nrow, ncol, lambda, mu, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rlaplace_mat
+Rcpp::NumericMatrix rlaplace_mat(size_t nrow, size_t ncol, double mu, double sigma);
+RcppExport SEXP _rangen_rlaplace_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rlaplace_mat(nrow, ncol, mu, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rgumble_mat
+Rcpp::NumericMatrix rgumble_mat(size_t nrow, size_t ncol, double mu, double sigma);
+RcppExport SEXP _rangen_rgumble_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rgumble_mat(nrow, ncol, mu, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rarcsine_mat
+Rcpp::NumericMatrix rarcsine_mat(size_t nrow, size_t ncol, double min, double max);
+RcppExport SEXP _rangen_rarcsine_mat(SEXP nrowSEXP, SEXP ncolSEXP, SEXP minSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type min(minSEXP);
+    Rcpp::traits::input_parameter< double >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(rarcsine_mat(nrow, ncol, min, max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rnorm_mat
+Rcpp::NumericMatrix rnorm_mat(size_t nrow, size_t ncol);
+RcppExport SEXP _rangen_rnorm_mat(SEXP nrowSEXP, SEXP ncolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< size_t >::type ncol(ncolSEXP);
+    rcpp_result_gen = Rcpp::wrap(rnorm_mat(nrow, ncol));
+    return rcpp_result_gen;
+END_RCPP
+}
 // sample_int
 Rcpp::IntegerVector sample_int(size_t n, size_t size, const bool replace);
 RcppExport SEXP _rangen_sample_int(SEXP nSEXP, SEXP sizeSEXP, SEXP replaceSEXP) {
@@ -257,7 +639,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rangen_runif", (DL_FUNC) &_rangen_runif, 3},
     {"_rangen_rbeta", (DL_FUNC) &_rangen_rbeta, 3},
     {"_rangen_rexp", (DL_FUNC) &_rangen_rexp, 2},
     {"_rangen_rchisq", (DL_FUNC) &_rangen_rchisq, 2},
@@ -270,6 +651,35 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rangen_rlaplace", (DL_FUNC) &_rangen_rlaplace, 3},
     {"_rangen_rgumble", (DL_FUNC) &_rangen_rgumble, 3},
     {"_rangen_rarcsine", (DL_FUNC) &_rangen_rarcsine, 3},
+    {"_rangen_rnorm", (DL_FUNC) &_rangen_rnorm, 1},
+    {"_rangen_colRunif", (DL_FUNC) &_rangen_colRunif, 4},
+    {"_rangen_colRbeta", (DL_FUNC) &_rangen_colRbeta, 4},
+    {"_rangen_colRexp", (DL_FUNC) &_rangen_colRexp, 3},
+    {"_rangen_colRchisq", (DL_FUNC) &_rangen_colRchisq, 3},
+    {"_rangen_colRgamma", (DL_FUNC) &_rangen_colRgamma, 4},
+    {"_rangen_colRgeom", (DL_FUNC) &_rangen_colRgeom, 3},
+    {"_rangen_colRcauchy", (DL_FUNC) &_rangen_colRcauchy, 4},
+    {"_rangen_colRt", (DL_FUNC) &_rangen_colRt, 4},
+    {"_rangen_colRpareto", (DL_FUNC) &_rangen_colRpareto, 4},
+    {"_rangen_colRfrechet", (DL_FUNC) &_rangen_colRfrechet, 5},
+    {"_rangen_colRlaplace", (DL_FUNC) &_rangen_colRlaplace, 4},
+    {"_rangen_colRgumble", (DL_FUNC) &_rangen_colRgumble, 4},
+    {"_rangen_colRarcsine", (DL_FUNC) &_rangen_colRarcsine, 4},
+    {"_rangen_colRnorm", (DL_FUNC) &_rangen_colRnorm, 2},
+    {"_rangen_runif_mat", (DL_FUNC) &_rangen_runif_mat, 4},
+    {"_rangen_rbeta_mat", (DL_FUNC) &_rangen_rbeta_mat, 4},
+    {"_rangen_rexp_mat", (DL_FUNC) &_rangen_rexp_mat, 3},
+    {"_rangen_rchisq_mat", (DL_FUNC) &_rangen_rchisq_mat, 3},
+    {"_rangen_rgamma_mat", (DL_FUNC) &_rangen_rgamma_mat, 4},
+    {"_rangen_rgeom_mat", (DL_FUNC) &_rangen_rgeom_mat, 3},
+    {"_rangen_rcauchy_mat", (DL_FUNC) &_rangen_rcauchy_mat, 4},
+    {"_rangen_rt_mat", (DL_FUNC) &_rangen_rt_mat, 4},
+    {"_rangen_rpareto_mat", (DL_FUNC) &_rangen_rpareto_mat, 4},
+    {"_rangen_rfrechet_mat", (DL_FUNC) &_rangen_rfrechet_mat, 5},
+    {"_rangen_rlaplace_mat", (DL_FUNC) &_rangen_rlaplace_mat, 4},
+    {"_rangen_rgumble_mat", (DL_FUNC) &_rangen_rgumble_mat, 4},
+    {"_rangen_rarcsine_mat", (DL_FUNC) &_rangen_rarcsine_mat, 4},
+    {"_rangen_rnorm_mat", (DL_FUNC) &_rangen_rnorm_mat, 2},
     {"_rangen_sample_int", (DL_FUNC) &_rangen_sample_int, 3},
     {"_rangen_sample", (DL_FUNC) &_rangen_sample, 3},
     {"_rangen_colSample", (DL_FUNC) &_rangen_colSample, 5},

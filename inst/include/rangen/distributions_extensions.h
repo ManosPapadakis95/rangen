@@ -62,19 +62,6 @@ namespace rangen
         return res;
     }
 
-    // Rcpp::List colSampleL(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace)
-    // {
-    //     const size_t n = rangen_internal::ncol(x);
-    //     arma::mat xx = rangen_internal::getArmaFrom(x, false);
-    //     Rcpp::List res(n);
-
-    //     for (size_t i = 0; i < n; ++i)
-    //     {
-    //         Res[i] = sample<arma::colvec>(xx.col(i), (size_t)size[i], replace[i]);
-    //     }
-    //     return res;
-    // }
-
     inline Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads())
     {
         const size_t m = rangen_internal::nrow(x);
@@ -105,17 +92,27 @@ namespace rangen
         return res;
     }
 
-    // Rcpp::List rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace)
-    // {
-    //     const size_t m = rangen_internal::nrow(x);
-    //     arma::mat xx = rangen_internal::getArmaFrom(x, false);
-    //     Rcpp::List res(m);
+    template <class RngFunction, class... Args>
+    Rcpp::NumericMatrix colRng(size_t nrow, size_t ncol, RngFunction rngF, Args &&...args)
+    {
+        Rcpp::NumericMatrix res(nrow, ncol);
+        arma::mat Res = rangen_internal::getArmaFrom(res, false);
 
-    //     for (size_t i = 0; i < m; ++i)
-    //     {
-    //         Res[i] = sample<arma::rowvec>(xx.row(i), (size_t)size[i], replace[i]);
-    //     }
-    //     return res;
-    // }
+        if constexpr (sizeof...(Args) == 0)
+        {
+            for (size_t i = 0; i < ncol; ++i)
+            {
+                Res.col(i) = rngF(nrow);
+            }
+        }
+        else
+        {
+            for (size_t i = 0; i < ncol; ++i)
+            {
+                Res.col(i) = rngF(nrow, (args[i])...); // Unpack i-th element of each arg
+            }
+        }
+        return res;
+    }
 
 }

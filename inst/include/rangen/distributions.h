@@ -182,9 +182,22 @@ namespace rangen
 		}
 
 		template <class T, class Generator>
-		T generic(size_t size, Generator rng)
+		T generic(size_t size, Generator &rng)
 		{
 			T res = rangen_internal::getVector<T>(size);
+
+			for (size_t i = 0; i < size; ++i)
+			{
+				res[i] = rng();
+			}
+			return res;
+		}
+		
+		template <class T, class Generator>
+		T generic(size_t nrow, size_t ncol, Generator &rng)
+		{
+			const size_t size = nrow*ncol;
+			T res = rangen_internal::getMatrix<T>(nrow, ncol);
 
 			for (size_t i = 0; i < size; ++i)
 			{
@@ -198,6 +211,13 @@ namespace rangen
 		{
 			Generator rng(args...);
 			return generic<T>(size, rng);
+		}
+
+		template <class T, class Generator, class... Args>
+		T generic(size_t nrow, size_t ncol, Args... args)
+		{
+			Generator rng(args...);
+			return generic<T>(nrow, ncol, rng);
 		}
 	}
 
@@ -364,40 +384,40 @@ namespace rangen
 	}
 
 	template <class T>
-	T runif(size_t size, double min = 0.0, double max = 1.0)
+	T runif(size_t n, double min = 0.0, double max = 1.0)
 	{
 		rng2.set_bounds(min, max);
-		return rangen_internal::generic<T>(size, rng2);
+		return rangen_internal::generic<T>(n, rng2);
 	}
 
 	template <class T>
-	T rbeta(size_t size, double alpha, double beta)
+	T rbeta(size_t n, double alpha, double beta)
 	{
-		return rangen_internal::generic<T, Beta>(size, alpha, beta);
+		return rangen_internal::generic<T, Beta>(n, alpha, beta);
 	}
 
 	template <class T>
-	T rexp(size_t size, double rate = 1.0)
+	T rexp(size_t n, double rate = 1.0)
 	{
-		return rangen_internal::generic<T, Exp>(size, rate);
+		return rangen_internal::generic<T, Exp>(n, rate);
 	}
 
 	template <class T>
-	T rchisq(size_t size, double df)
+	T rchisq(size_t n, double df)
 	{
-		return rangen_internal::generic<T, Chisq>(size, df);
+		return rangen_internal::generic<T, Chisq>(n, df);
 	}
 
 	template <class T>
-	T rgamma(size_t size, double shape, double rate = 1.0)
+	T rgamma(size_t n, double shape, double rate = 1.0)
 	{
-		return rangen_internal::generic<T, Gamma>(size, shape, rate);
+		return rangen_internal::generic<T, Gamma>(n, shape, rate);
 	}
 
 	template <class T>
-	T rgeom(size_t size, double prob)
+	T rgeom(size_t n, double prob)
 	{
-		return rangen_internal::generic<T, Geom>(size, prob);
+		return rangen_internal::generic<T, Geom>(n, prob);
 	}
 
 	template <class T>
@@ -440,5 +460,96 @@ namespace rangen
 	T rarcsine(size_t n, double min = 0.0, double max = 1.0)
 	{
 		return rangen_internal::generic<T, Arcsine>(n, min, max);
+	}
+
+	template <class T>
+	T rnorm(size_t n)
+	{
+		return rangen_internal::generic<T>(n, norm);
+	}
+
+	template <class T>
+	T runif_mat(size_t nrow, size_t ncol, double min = 0.0, double max = 1.0)
+	{
+		rng2.set_bounds(min, max);
+		return rangen_internal::generic<T>(nrow, ncol, rng2);
+	}
+
+	template <class T>
+	T rbeta_mat(size_t nrow, size_t ncol, double alpha, double beta)
+	{
+		return rangen_internal::generic<T, Beta>(nrow, ncol, alpha, beta);
+	}
+
+	template <class T>
+	T rexp_mat(size_t nrow, size_t ncol, double rate = 1.0)
+	{
+		return rangen_internal::generic<T, Exp>(nrow, ncol, rate);
+	}
+
+	template <class T>
+	T rchisq_mat(size_t nrow, size_t ncol, double df)
+	{
+		return rangen_internal::generic<T, Chisq>(nrow, ncol, df);
+	}
+
+	template <class T>
+	T rgamma_mat(size_t nrow, size_t ncol, double shape, double rate = 1.0)
+	{
+		return rangen_internal::generic<T, Gamma>(nrow, ncol, shape, rate);
+	}
+
+	template <class T>
+	T rgeom_mat(size_t nrow, size_t ncol, double prob)
+	{
+		return rangen_internal::generic<T, Geom>(nrow, ncol, prob);
+	}
+
+	template <class T>
+	T rcauchy_mat(size_t nrow, size_t ncol, double location = 0.0, double scale = 1.0)
+	{
+		return rangen_internal::generic<T, Cauchy>(nrow, ncol, location, scale);
+	}
+
+	template <class T>
+	T rt_mat(size_t nrow, size_t ncol, double df, double ncp)
+	{
+		return rangen_internal::generic<T, StudentT>(nrow, ncol, df, ncp);
+	}
+
+	template <class T>
+	T rpareto_mat(size_t nrow, size_t ncol, double shape = 1.0, double scale = 1.0)
+	{
+		return rangen_internal::generic<T, Pareto>(nrow, ncol, shape, scale);
+	}
+
+	template <class T>
+	T rfrechet_mat(size_t nrow, size_t ncol, double shape = 1.0, double mean = 0.0, double scale = 1.0)
+	{
+		return rangen_internal::generic<T, Frechet>(nrow, ncol, shape, mean, scale);
+	}
+
+	template <class T>
+	T rlaplace_mat(size_t nrow, size_t ncol, double mean = 0.0, double sigma = 1.0)
+	{
+		return rangen_internal::generic<T, Laplace>(nrow, ncol, mean, sigma);
+	}
+
+	template <class T>
+	T rgumble_mat(size_t nrow, size_t ncol, double mean = 0.0, double sigma = 1.0)
+	{
+		return rangen_internal::generic<T, Gumbel>(nrow, ncol, mean, sigma);
+	}
+
+	template <class T>
+	T rarcsine_mat(size_t nrow, size_t ncol, double min = 0.0, double max = 1.0)
+	{
+		return rangen_internal::generic<T, Arcsine>(nrow, ncol, min, max);
+	}
+
+	template <class T>
+	T rnorm_mat(size_t nrow, size_t ncol)
+	{
+		return rangen_internal::generic<T>(nrow, ncol, norm);
 	}
 }

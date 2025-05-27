@@ -20,7 +20,6 @@ namespace rangen
 	using integer = std::true_type;
 	using std::iota;
 	using std::vector;
-	static zigg::Ziggurat ziggurat;
 
 	namespace internal
 	{
@@ -43,6 +42,9 @@ namespace rangen
 			inline void setSeed(type state){
 				rng.state = state;
 			}
+
+			Integer_Core(const Integer_Core&) = delete;
+			Integer_Core& operator=(const Integer_Core&) = delete;
 
 		protected:
 			struct pcg32_random_t
@@ -68,6 +70,17 @@ namespace rangen
 			}
 		};
 	}
+
+	
+
+	class Norm : public zigg::Ziggurat {
+		public:
+		inline operator()(){
+			return rnorm();
+		}
+	};
+	
+	inline Norm norm;
 
 	template <typename T, bool replace = false>
 	class uniform : public internal::Integer_Core
@@ -178,7 +191,7 @@ namespace rangen
 		{
 			while (true)
 			{
-				double x = ziggurat.rnorm();
+				double x = norm();
 				double v = 1.0 + c * x;
 				v = v * v * v;
 				if (v > 0)
@@ -265,7 +278,7 @@ namespace rangen
 
 		double operator()()
 		{
-			return location + scale * std::tan(M_PI * ziggurat.rnorm());
+			return location + scale * std::tan(M_PI * norm());
 		}
 	};
 
@@ -278,8 +291,8 @@ namespace rangen
 
 		double operator()()
 		{
-			// return (ziggurat.rnorm() + ncp) / std::sqrt(Chisq::operator()() / df);
-			return (ziggurat.rnorm() * sqrt_df + ncp_sqrt_df) / std::sqrt(Chisq::operator()());
+			// return (norm() + ncp) / std::sqrt(Chisq::operator()() / df);
+			return (norm() * sqrt_df + ncp_sqrt_df) / std::sqrt(Chisq::operator()());
 		}
 	};
 	
@@ -344,7 +357,7 @@ namespace rangen
 	};
 
 	inline void setSeed(const size_t s){
-		ziggurat.setSeed(static_cast<uint32_t>(s));
+		norm.setSeed(static_cast<uint32_t>(s));
 		rng.setSeed(static_cast<uint64_t>(s));
 		rng2.setSeed(static_cast<uint64_t>(s));
 		irng.setSeed(static_cast<uint64_t>(s));

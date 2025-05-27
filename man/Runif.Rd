@@ -10,7 +10,7 @@
 \alias{Rpareto}
 \alias{Rfrechet}
 \alias{Rlaplace}
-\alias{Rgumblet}
+\alias{Rgumble}
 \alias{Rarcsine}
 \alias{set_seed}
 \title{
@@ -33,8 +33,35 @@ Rgeom(n, prob)
 Rpareto(n, shape = 1, scale = 1)
 Rfrechet(n, lambda = 1, mu = 0, sigma = 1)
 Rlaplace(n, mu = 0, sigma = 1)
-Rgumblet(n, mu = 0, sigma = 1)
+Rgumble(n, mu = 0, sigma = 1)
 Rarcsine(n, min = 0, max = 1)
+Runif.mat(nrow, ncol, min = 0, max = 1) 
+Rbeta.mat(nrow, ncol, alpha, beta)
+Rexp.mat(nrow, ncol, rate = 1)
+Rchisq.mat(nrow, ncol, df)
+Rgamma.mat(nrow, ncol, shape, rate = 1)
+Rcauchy.mat(nrow, ncol, location = 0, scale = 1)
+Rt.mat(nrow, ncol, df, ncp)
+Rgeom.mat(nrow, ncol, prob)
+Rpareto.mat(nrow, ncol, shape = 1, scale = 1)
+Rfrechet.mat(nrow, ncol, lambda = 1, mu = 0, sigma = 1)
+Rlaplace.mat(nrow, ncol, mu = 0, sigma = 1)
+Rgumble.mat(nrow, ncol, mu = 0, sigma = 1)
+Rarcsine.mat(nrow, ncol, min = 0, max = 1)
+colRunif(nrow, ncol, min = rep_len(0, ncol), max = rep_len(1, ncol))
+colRbeta(nrow, ncol, alpha, beta)
+colRexp(nrow, ncol, rate = rep_len(1, ncol))
+colRchisq(nrow, ncol, df)
+colRgamma(nrow, ncol, shape, rate = rep_len(1, ncol))
+colRgeom(nrow, ncol, prob)
+colRcauchy(nrow, ncol, location = rep_len(0, ncol), scale = rep_len(1, ncol))
+colRt(nrow, ncol, df, ncp)
+colRpareto(nrow, ncol, shape = rep_len(1, ncol), scale = rep_len(1, ncol))
+colRfrechet(nrow, ncol, lambda = rep_len(1, ncol), mu = rep_len(0, ncol), sigma = rep_len(1, ncol))
+colRlaplace(nrow, ncol, mu = rep_len(0, ncol), sigma = rep_len(1, ncol))
+colRgumble(nrow, ncol, mu = rep_len(0, ncol), sigma = rep_len(1, ncol))
+colRarcsine(nrow, ncol, min = rep_len(0, ncol), max = rep_len(1, ncol))
+colRnorm(nrow, ncol)
 set_seed(seed = nanoTime())
 }
 
@@ -82,31 +109,31 @@ A single value, interpreted as an integer.
 
 \details{
 \itemize{
-\item \code{Runif}: generates random values from the uniform distribution, similar to R's built-in \link{runif} function. The type used is \eqn{min + (max - min) \cdot U}, where \code{U} is a uniform random variable in the interval (0, 1).
+\item \code{Runif, Runif.mat, colRunif}: generates random values from the uniform distribution, similar to R's built-in \link{runif} function. The type used is \eqn{min + (max - min) \cdot U}, where \code{U} is a uniform random variable in the interval (0, 1).
 
-\item \code{Rbeta}: generates random values from the beta distribution with parameters \code{alpha} and \code{beta}. The type used involves generating two gamma-distributed variables \( X_1 \) and \( X_2 \), and returning \eqn{\frac{X_1}{X_1 + X_2}}, where \( X_1 \) and \( X_2 \) have the shape parameters \code{alpha} and \code{beta}, respectively.
+\item \code{Rbeta, Rbeta.mat, colRbeta}: generates random values from the beta distribution with parameters \code{alpha} and \code{beta}. The type used involves generating two gamma-distributed variables \( X_1 \) and \( X_2 \), and returning \eqn{\frac{X_1}{X_1 + X_2}}, where \( X_1 \) and \( X_2 \) have the shape parameters \code{alpha} and \code{beta}, respectively.
 
-\item \code{Rexp}: generates random values from the exponential distribution with the specified \code{rate} parameter. The type used is \eqn{-\frac{\log(U)}{\text{rate}}}, where \code{U} is a uniform random variable in the interval (0, 1).
+\item \code{Rexp, Rexp.mat, colRexp}: generates random values from the exponential distribution with the specified \code{rate} parameter. The type used is \eqn{-\frac{\log(U)}{\text{rate}}}, where \code{U} is a uniform random variable in the interval (0, 1).
 
-\item \code{Rchisq}: generates random values from the chi-squared distribution with \code{df} degrees of freedom. The type used is the sum of the squares of \code{df} independent standard normal random variables, i.e., \eqn{Y_1^2 + Y_2^2 + \dots + Y_{df}^2}, where each \( Y_i \) is a standard normal random variable.
+\item \code{Rchisq, Rchisq.mat, colRchisq}: generates random values from the chi-squared distribution with \code{df} degrees of freedom. The type used is the sum of the squares of \code{df} independent standard normal random variables, i.e., \eqn{Y_1^2 + Y_2^2 + \dots + Y_{df}^2}, where each \( Y_i \) is a standard normal random variable.
 
-\item \code{Rgamma}: generates random values from the gamma distribution with \code{shape} and \code{rate} parameters. The type used for shape greater than or equal to 1 is the Marsaglia and Tsang method, which involves generating a variable \( V \) and returning \eqn{d \cdot V \cdot \text{rate}}, where \( d \) is a function of the shape and \( V \) is derived from a normal random variable. For shape less than 1, a combination of the uniform and exponential distributions is used, involving an acceptance-rejection method.
+\item \code{Rgamma, Rgamma.mat, colRgamma}: generates random values from the gamma distribution with \code{shape} and \code{rate} parameters. The type used for shape greater than or equal to 1 is the Marsaglia and Tsang method, which involves generating a variable \( V \) and returning \eqn{d \cdot V \cdot \text{rate}}, where \( d \) is a function of the shape and \( V \) is derived from a normal random variable. For shape less than 1, a combination of the uniform and exponential distributions is used, involving an acceptance-rejection method.
 
-\item \code{Rcauchy}: generates random values from the Cauchy distribution with specified \code{location} and \code{scale} parameters. The type used for this is \eqn{\text{location} + \text{scale} \cdot \tan(\pi \cdot (U - 0.5))}, where \code{U} is a uniform random variable.
+\item \code{Rcauchy, Rcauchy.mat, colRcauchy}: generates random values from the Cauchy distribution with specified \code{location} and \code{scale} parameters. The type used for this is \eqn{\text{location} + \text{scale} \cdot \tan(\pi \cdot (U - 0.5))}, where \code{U} is a uniform random variable.
 
-\item \code{Rt}: generates random values from the t-distribution with specified \code{df} degrees of freedom and an optional non-centrality parameter \code{ncp}. The type used is \eqn{\frac{Z}{\sqrt{\frac{Y}{df}}}}, where \code{Z} is a standard normal random variable and \code{Y} is a chi-squared random variable. If \code{ncp} is provided, the type used is \eqn{\frac{Z + ncp}{\sqrt{\frac{Y}{df}}}}.
+\item \code{Rt, Rt.mat, colRt}: generates random values from the t-distribution with specified \code{df} degrees of freedom and an optional non-centrality parameter \code{ncp}. The type used is \eqn{\frac{Z}{\sqrt{\frac{Y}{df}}}}, where \code{Z} is a standard normal random variable and \code{Y} is a chi-squared random variable. If \code{ncp} is provided, the type used is \eqn{\frac{Z + ncp}{\sqrt{\frac{Y}{df}}}}.
 
-\item \code{Rgeom}: generates random values from the geometric distribution with the specified probability \code{prob}. The type used is \eqn{\left\lfloor \frac{\log(U)}{\log(1 - prob)} \right\rfloor}, where \code{U} is a uniform random variable.
+\item \code{Rgeom, Rgeom.mat, colRgeom}: generates random values from the geometric distribution with the specified probability \code{prob}. The type used is \eqn{\left\lfloor \frac{\log(U)}{\log(1 - prob)} \right\rfloor}, where \code{U} is a uniform random variable.
 
-\item \code{Rpareto}: generates random values from the Pareto distribution with parameters \code{shape} and \code{scale}. The type used is \eqn{\text{scale} \cdot (1 - U)^{-\frac{1}{\text{shape}}}}, where \code{U} is a uniform random variable in the interval (0, 1).
+\item \code{Rpareto, Rpareto.mat, colRpareto}: generates random values from the Pareto distribution with parameters \code{shape} and \code{scale}. The type used is \eqn{\text{scale} \cdot (1 - U)^{-\frac{1}{\text{shape}}}}, where \code{U} is a uniform random variable in the interval (0, 1).
 
-\item \code{Rfrechet}: generates random values from the Frechet distribution with parameters \code{shape}, \code{mu}, and \code{scale}. The type used is \eqn{\mu + \text{scale} \cdot (-\log U)^{1/\text{shape}}}, where \code{U} is a uniform random variable in (0, 1).
+\item \code{Rfrechet, Rfrechet.mat, colRfrechet}: generates random values from the Frechet distribution with parameters \code{shape}, \code{mu}, and \code{scale}. The type used is \eqn{\mu + \text{scale} \cdot (-\log U)^{1/\text{shape}}}, where \code{U} is a uniform random variable in (0, 1).
 
-\item \code{Rlaplace}: generates random values from the Laplace distribution with location parameter \code{mu} and scale parameter \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \text{sign}(U) \cdot \log(1 - 2 \cdot |U|)}, where \code{U} is a uniform random variable in (0, 1).
+\item \code{Rlaplace, Rlaplace.mat, colRlaplace}: generates random values from the Laplace distribution with location parameter \code{mu} and scale parameter \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \text{sign}(U) \cdot \log(1 - 2 \cdot |U|)}, where \code{U} is a uniform random variable in (0, 1).
 
-\item \code{Rgumblet}: generates random values from the Gumbel (type I extreme value) distribution with parameters \code{mu} and \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \log(-\log U)}, where \code{U} is a uniform random variable in (0, 1).
+\item \code{Rgumble, Rgumble.mat, colRgumble}: generates random values from the Gumbel (type I extreme value) distribution with parameters \code{mu} and \code{sigma}. The type used is \eqn{\mu - \sigma \cdot \log(-\log U)}, where \code{U} is a uniform random variable in (0, 1).
 
-\item \code{Rarcsine}: generates random values from the arcsine distribution over the interval \code{[min, max]}. The type used is \eqn{\text{min} + (\text{max} - \text{min}) \cdot \sin^2(\pi U / 2)}, where \code{U} is a uniform random variable in (0, 1).
+\item \code{Rarcsine, Rarcsine.mat, colRarcsine}: generates random values from the arcsine distribution over the interval \code{[min, max]}. The type used is \eqn{\text{min} + (\text{max} - \text{min}) \cdot \sin^2(\pi U / 2)}, where \code{U} is a uniform random variable in (0, 1).
 
 \item \code{set_seed}: Set the seed for the Rngs. Not working with parallel version of column - row sample.
 }
@@ -114,7 +141,9 @@ A single value, interpreted as an integer.
 
 
 \value{
-Each function returns a vector with simulated values from the respective distribution.
+Each \code{function}, for example \code{Runif}, returns a vector with simulated values from the respective distribution.
+Each \code{function.mat}, for example \code{Runif.mat}, returns a matrix with simulated values from the respective distribution.
+Each \code{colFunction}, for example \code{colRunif}, returns a matrix with column major simulated values from the respective distribution.
 }
 
 \author{
@@ -126,17 +155,52 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x_unif <- Runif(10, 0, 1)
-x_beta <- Rbeta(10, 2, 5)
-x_exp <- Rexp(10, 1.5)
-x_chisq <- Rchisq(10, 4)
-x_gamma <- Rgamma(10, 2, 2)
-x_cauchy <- Rcauchy(10, 0, 1)
-x_t <- Rt(10, 5, 2)
-x_geom <- Rgeom(10, 0.5)
-x_pareto <- Rpareto(10, shape = 2, scale = 1)
-x_frechet <- Rfrechet(10, lambda = 1, mu = 0, sigma = 1)
-x_laplace <- Rlaplace(10, mu = 0, sigma = 1)
-x_gumblet <- Rgumblet(10, mu = 0, sigma = 1)
-x_arcsine <- Rarcsine(10, min = 0, max = 1)
+# Scalar draws
+x_unif     <- Runif(5, 0, 1)
+x_beta     <- Rbeta(5, 2, 5)
+x_exp      <- Rexp(5, 1.5)
+x_chisq    <- Rchisq(5, 4)
+x_gamma    <- Rgamma(5, 2, 2)
+x_cauchy   <- Rcauchy(5, 0, 1)
+x_t        <- Rt(5, df = 5, ncp = 2)
+x_geom     <- Rgeom(5, 0.5)
+x_pareto   <- Rpareto(5, shape = 2, scale = 1)
+x_frechet  <- Rfrechet(5, lambda = 1, mu = 0, sigma = 1)
+x_laplace  <- Rlaplace(5, mu = 0, sigma = 1)
+x_gumblet  <- Rgumble(5, mu = 0, sigma = 1)
+x_arcsine  <- Rarcsine(5, min = 0, max = 1)
+x_norm     <- Rnorm(5, mean = 0, sd = 1)
+
+#matrices
+x_unif     <- Runif.mat(5,2, 0, 1)
+x_beta     <- Rbeta.mat(5,2, 2, 5)
+x_exp      <- Rexp.mat(5,2, 1.5)
+x_chisq    <- Rchisq.mat(5,2, 4)
+x_gamma    <- Rgamma.mat(5,2, 2, 2)
+x_cauchy   <- Rcauchy.mat(5,2, 0, 1)
+x_t        <- Rt.mat(5,2, df = 5, ncp = 2)
+x_geom     <- Rgeom.mat(5,2, 0.5)
+x_pareto   <- Rpareto.mat(5,2, shape = 2, scale = 1)
+x_frechet  <- Rfrechet.mat(5,2, lambda = 1, mu = 0, sigma = 1)
+x_laplace  <- Rlaplace.mat(5,2, mu = 0, sigma = 1)
+x_gumblet  <- Rgumble.mat(5,2, mu = 0, sigma = 1)
+x_arcsine  <- Rarcsine.mat(5,2, min = 0, max = 1)
+x_norm     <- Rnorm.mat(5,2, mean = 0, sd = 1)
+
+# Column-wise (vectorized by column) draws
+x_col_unif    <- colRunif(5, 2, min = c(0, 1), max = c(1, 2))
+x_col_beta    <- colRbeta(5, 2, alpha = c(2, 5), beta = c(5, 2))
+x_col_exp     <- colRexp(5, 2, rate = c(1.5, 2.0))
+x_col_chisq   <- colRchisq(5, 2, df = c(4, 5))
+x_col_gamma   <- colRgamma(5, 2, shape = c(2, 3), scale = c(2, 1))
+x_col_cauchy  <- colRcauchy(5, 2, location = c(0, 1), scale = c(1, 2))
+x_col_t       <- colRt(5, 2, df = c(5, 6), ncp = c(2, 1))
+x_col_geom    <- colRgeom(5, 2, prob = c(0.5, 0.3))
+x_col_pareto  <- colRpareto(5, 2, shape = c(2, 3), scale = c(1, 1))
+x_col_frechet <- colRfrechet(5, 2, lambda = c(1, 2), mu = c(0, 0), sigma = c(1, 1))
+x_col_laplace <- colRlaplace(5, 2, mu = c(0, 1), sigma = c(1, 2))
+x_col_gumble  <- colRgumble(5, 2, mu = c(0, 1), sigma = c(1, 2))
+x_col_arcsine <- colRarcsine(5, 2, min = c(0, 0.5), max = c(1, 1.5))
+x_col_norm    <- colRnorm(5, 2, mean = c(0, 1), sd = c(1, 2))
+
 }
