@@ -12,6 +12,19 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// runif
+Rcpp::NumericVector runif(size_t n, double min, double max);
+RcppExport SEXP _rangen_runif(SEXP nSEXP, SEXP minSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< size_t >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type min(minSEXP);
+    Rcpp::traits::input_parameter< double >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(runif(n, min, max));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rbeta
 Rcpp::NumericVector rbeta(size_t n, double alpha, double beta);
 RcppExport SEXP _rangen_rbeta(SEXP nSEXP, SEXP alphaSEXP, SEXP betaSEXP) {
@@ -639,6 +652,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_rangen_runif", (DL_FUNC) &_rangen_runif, 3},
     {"_rangen_rbeta", (DL_FUNC) &_rangen_rbeta, 3},
     {"_rangen_rexp", (DL_FUNC) &_rangen_rexp, 2},
     {"_rangen_rchisq", (DL_FUNC) &_rangen_rchisq, 2},
