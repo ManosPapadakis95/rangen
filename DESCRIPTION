@@ -3,10 +3,10 @@ Type: Package
 Title: Random Number Generators and Utilities
 Description: Provides a collection of random number generators for common and custom distributions, along with utility functions for sampling and simulation.
 Version: 0.0.1
-Date: 2025-05-27
+Date: 2025-05-29
 Authors@R: c(
     person("Manos Papadakis", email = "papadakm95@gmail.com", role = c("aut", "cre", "cph")),
-    person("Michail Tsagris", role = c("aut"))
+    person("Michail Tsagris", role = c("ctb"))
     )
 Maintainer: Manos Papadakis <papadakm95@gmail.com>
 License: GPL-3

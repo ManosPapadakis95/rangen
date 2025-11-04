@@ -85,10 +85,10 @@ xs <- Sample(x)
 # Create a matrix and perform column-wise sampling
 # 'size' must have the same length as the number of columns
 mat <- matrix(1:20, nrow = 5, ncol = 4)
-colSample(mat, size = rep(5, ncol(mat)), replace = TRUE)
+colSample(mat, size = rep(5, ncol(mat)), replace = rep(TRUE, ncol(mat)))
 
 # Create a matrix and perform row-wise sampling
 # 'size' must have the same length as the number of rows
-rowSample(mat, size = rep(4, nrow(mat)), replace = FALSE)
+rowSample(mat, size = rep(4, nrow(mat)), replace = rep(FALSE, nrow(mat)))
 }
 

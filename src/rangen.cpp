@@ -1,7 +1,7 @@
 #include "rangen.h"
 #include <RcppArmadillo.h>
 
-//[[Rcpp::export(name = "Runif")]]
+//[[Rcpp::export(name = "Runif", signature = {n, min = 0, max = 1})]]
 Rcpp::NumericVector runif(size_t n, double min = 0.0, double max = 1.0)
 {
     return rangen::runif<Rcpp::NumericVector>(n, min, max);

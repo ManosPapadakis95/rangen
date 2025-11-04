@@ -12,6 +12,35 @@
 \alias{Rlaplace}
 \alias{Rgumble}
 \alias{Rarcsine}
+\alias{Rnorm}
+\alias{Runif.mat}
+\alias{Rbeta.mat}
+\alias{Rexp.mat}
+\alias{Rchisq.mat}
+\alias{Rgamma.mat}
+\alias{Rcauchy.mat}
+\alias{Rt.mat}
+\alias{Rgeom.mat}
+\alias{Rpareto.mat}
+\alias{Rfrechet.mat}
+\alias{Rlaplace.mat}
+\alias{Rgumble.mat}
+\alias{Rarcsine.mat}
+\alias{Rnorm.mat}
+\alias{colRunif}
+\alias{colRbeta}
+\alias{colRexp}
+\alias{colRchisq}
+\alias{colRgamma}
+\alias{colRgeom}
+\alias{colRcauchy}
+\alias{colRt}
+\alias{colRpareto}
+\alias{colRfrechet}
+\alias{colRlaplace}
+\alias{colRgumble}
+\alias{colRarcsine}
+\alias{colRnorm}
 \alias{set_seed}
 \title{
 Random values simulation from various distributions
@@ -35,6 +64,7 @@ Rfrechet(n, lambda = 1, mu = 0, sigma = 1)
 Rlaplace(n, mu = 0, sigma = 1)
 Rgumble(n, mu = 0, sigma = 1)
 Rarcsine(n, min = 0, max = 1)
+Rnorm(n)
 Runif.mat(nrow, ncol, min = 0, max = 1) 
 Rbeta.mat(nrow, ncol, alpha, beta)
 Rexp.mat(nrow, ncol, rate = 1)
@@ -48,6 +78,7 @@ Rfrechet.mat(nrow, ncol, lambda = 1, mu = 0, sigma = 1)
 Rlaplace.mat(nrow, ncol, mu = 0, sigma = 1)
 Rgumble.mat(nrow, ncol, mu = 0, sigma = 1)
 Rarcsine.mat(nrow, ncol, min = 0, max = 1)
+Rnorm.mat(nrow, ncol)
 colRunif(nrow, ncol, min = rep_len(0, ncol), max = rep_len(1, ncol))
 colRbeta(nrow, ncol, alpha, beta)
 colRexp(nrow, ncol, rate = rep_len(1, ncol))
@@ -57,7 +88,8 @@ colRgeom(nrow, ncol, prob)
 colRcauchy(nrow, ncol, location = rep_len(0, ncol), scale = rep_len(1, ncol))
 colRt(nrow, ncol, df, ncp)
 colRpareto(nrow, ncol, shape = rep_len(1, ncol), scale = rep_len(1, ncol))
-colRfrechet(nrow, ncol, lambda = rep_len(1, ncol), mu = rep_len(0, ncol), sigma = rep_len(1, ncol))
+colRfrechet(nrow, ncol, lambda = rep_len(1, ncol), 
+mu = rep_len(0, ncol), sigma = rep_len(1, ncol))
 colRlaplace(nrow, ncol, mu = rep_len(0, ncol), sigma = rep_len(1, ncol))
 colRgumble(nrow, ncol, mu = rep_len(0, ncol), sigma = rep_len(1, ncol))
 colRarcsine(nrow, ncol, min = rep_len(0, ncol), max = rep_len(1, ncol))
@@ -68,6 +100,12 @@ set_seed(seed = nanoTime())
 \arguments{
 \item{n}{
 The number of values to generate.
+}
+\item{nrow}{
+The number of rows.
+}
+\item{ncol}{
+The number of columns.
 }
 \item{min}{
 The lower value.
@@ -169,7 +207,7 @@ x_frechet  <- Rfrechet(5, lambda = 1, mu = 0, sigma = 1)
 x_laplace  <- Rlaplace(5, mu = 0, sigma = 1)
 x_gumblet  <- Rgumble(5, mu = 0, sigma = 1)
 x_arcsine  <- Rarcsine(5, min = 0, max = 1)
-x_norm     <- Rnorm(5, mean = 0, sd = 1)
+x_norm     <- Rnorm(5)
 
 #matrices
 x_unif     <- Runif.mat(5,2, 0, 1)
@@ -185,14 +223,14 @@ x_frechet  <- Rfrechet.mat(5,2, lambda = 1, mu = 0, sigma = 1)
 x_laplace  <- Rlaplace.mat(5,2, mu = 0, sigma = 1)
 x_gumblet  <- Rgumble.mat(5,2, mu = 0, sigma = 1)
 x_arcsine  <- Rarcsine.mat(5,2, min = 0, max = 1)
-x_norm     <- Rnorm.mat(5,2, mean = 0, sd = 1)
+x_norm     <- Rnorm.mat(5,2)
 
 # Column-wise (vectorized by column) draws
 x_col_unif    <- colRunif(5, 2, min = c(0, 1), max = c(1, 2))
 x_col_beta    <- colRbeta(5, 2, alpha = c(2, 5), beta = c(5, 2))
 x_col_exp     <- colRexp(5, 2, rate = c(1.5, 2.0))
 x_col_chisq   <- colRchisq(5, 2, df = c(4, 5))
-x_col_gamma   <- colRgamma(5, 2, shape = c(2, 3), scale = c(2, 1))
+x_col_gamma   <- colRgamma(5, 2, shape = c(2, 3), rate = c(2, 1))
 x_col_cauchy  <- colRcauchy(5, 2, location = c(0, 1), scale = c(1, 2))
 x_col_t       <- colRt(5, 2, df = c(5, 6), ncp = c(2, 1))
 x_col_geom    <- colRgeom(5, 2, prob = c(0.5, 0.3))
@@ -201,6 +239,6 @@ x_col_frechet <- colRfrechet(5, 2, lambda = c(1, 2), mu = c(0, 0), sigma = c(1, 
 x_col_laplace <- colRlaplace(5, 2, mu = c(0, 1), sigma = c(1, 2))
 x_col_gumble  <- colRgumble(5, 2, mu = c(0, 1), sigma = c(1, 2))
 x_col_arcsine <- colRarcsine(5, 2, min = c(0, 0.5), max = c(1, 1.5))
-x_col_norm    <- colRnorm(5, 2, mean = c(0, 1), sd = c(1, 2))
+x_col_norm    <- colRnorm(5, 2)
 
 }

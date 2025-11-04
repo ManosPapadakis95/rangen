@@ -4,6 +4,10 @@
 #include "distributions.h"
 #include "assertions.hpp"
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 namespace rangen
 {
 
@@ -56,7 +60,7 @@ namespace rangen
         {
             for (size_t i = 0; i < n; ++i)
             {
-                Res.col(i) = sample<arma::colvec, decltype(xx.col(i))>(xx.col(i), (size_t)ss[i], replace[i], parallel);
+                Res.col(i) = sample<arma::colvec, decltype(xx.col(i))>(xx.col(i), (size_t)ss(i), replace(i), parallel);
             }
         }
         return res;
