@@ -36,7 +36,7 @@ namespace rangen
         }
     }
 
-    inline Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads())
+    inline Rcpp::NumericMatrix colSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = rangen::max_threads())
     {
         const size_t n = rangen_internal::ncol(x);
         const size_t m = *std::max_element(size.begin(), size.end());
@@ -66,7 +66,7 @@ namespace rangen
         return res;
     }
 
-    inline Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads())
+    inline Rcpp::NumericMatrix rowSample(Rcpp::NumericMatrix x, Rcpp::NumericVector size, Rcpp::LogicalVector replace, const bool parallel = false, const size_t cores = rangen::max_threads())
     {
         const size_t m = rangen_internal::nrow(x);
         const size_t n = *std::max_element(size.begin(), size.end());

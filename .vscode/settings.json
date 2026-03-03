@@ -89,5 +89,6 @@
         "cpp": "cpp",
         "myclass": "cpp",
         "header": "cpp"
-    }
+    },
+    "r.lsp.promptToInstall": false
 }

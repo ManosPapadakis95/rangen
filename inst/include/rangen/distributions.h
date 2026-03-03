@@ -12,14 +12,6 @@ namespace rangen
 
 	namespace rangen_internal
 	{
-		inline unsigned int get_num_of_threads()
-		{
-#ifdef _OPENMP
-			return omp_get_max_threads();
-#else
-			return 0;
-#endif
-		}
 
 		template <typename T>
 		inline constexpr bool is_arma_mat =
@@ -192,11 +184,11 @@ namespace rangen
 			}
 			return res;
 		}
-		
+
 		template <class T, class Generator>
 		T generic(size_t nrow, size_t ncol, Generator &rng)
 		{
-			const size_t size = nrow*ncol;
+			const size_t size = nrow * ncol;
 			T res = rangen_internal::getMatrix<T>(nrow, ncol);
 
 			for (size_t i = 0; i < size; ++i)
@@ -221,6 +213,15 @@ namespace rangen
 		}
 	}
 
+	inline unsigned int max_threads()
+	{
+#ifdef _OPENMP
+		return omp_get_max_threads();
+#else
+		return 0;
+#endif
+	}
+
 	template <class Ret, class T = Ret>
 	Ret sample(T x, size_t size, const bool replace = false, const bool thread_safe = false)
 	{
@@ -229,14 +230,17 @@ namespace rangen
 
 		if (replace)
 		{
-			if(thread_safe){
+			if (thread_safe)
+			{
 				uniform<integer, true> rng(0, n - 1);
 				for (size_t i = 0; i < size; ++i)
 				{
 					res[i] = x[rng()];
 				}
-			}else{
-				irng_rep.set_bounds(0,n-1);
+			}
+			else
+			{
+				irng_rep.set_bounds(0, n - 1);
 				for (size_t i = 0; i < size; ++i)
 				{
 					res[i] = x[irng_rep()];
@@ -245,14 +249,17 @@ namespace rangen
 		}
 		else
 		{
-			if(thread_safe){
+			if (thread_safe)
+			{
 				uniform<integer> rng(0, n - 1);
 				for (size_t i = 0; i < size; ++i)
 				{
 					res[i] = x[rng()];
 				}
-			}else{
-				irng.set_bounds(0,n-1);
+			}
+			else
+			{
+				irng.set_bounds(0, n - 1);
 				for (size_t i = 0; i < size; ++i)
 				{
 					res[i] = x[irng()];
@@ -274,7 +281,7 @@ namespace rangen
 	}
 
 	template <class Ret, class T, class S, class L>
-	Ret colSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads())
+	Ret colSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen::max_threads())
 	{
 		const size_t n = rangen_internal::ncol(x);
 		const size_t m = *std::max_element(size.begin(), size.end());
@@ -329,7 +336,7 @@ namespace rangen
 	}
 
 	template <class Ret, class T, class S, class L>
-	Ret rowSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen_internal::get_num_of_threads())
+	Ret rowSample(T x, S size, L replace, const bool parallel = false, const size_t cores = rangen::max_threads())
 	{
 		const size_t m = rangen_internal::nrow(x);
 		const size_t n = *std::max_element(size.begin(), size.end());
